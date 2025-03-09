@@ -30,7 +30,7 @@
 
   
         <!-- تضمين Id لضمان حذف القسم الصحيح -->
-        <input type="text" asp-for="Id" />
+        <input type="hidden" asp-for="Id" />
 
         <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Confirm Delete</button>
         <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
