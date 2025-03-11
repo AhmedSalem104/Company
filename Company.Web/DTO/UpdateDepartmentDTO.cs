@@ -5,7 +5,6 @@ namespace Company.Web.DTO
     public class UpdateDepartmentDTO
     {
 
-        public int Id { get; set; }
 
         [Required(ErrorMessage = "Code Is Requierd")]
         public string Code { get; set; }
