@@ -1,7 +1,6 @@
 ﻿using Company.Data.Data.Contexts;
 using Company.Data.Models;
 using Company.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +9,10 @@ using System.Threading.Tasks;
 
 namespace Company.Services.Repositories
 {
-    public class DepartmentRepository : GenericRepository<Department> ,IDepartmentRepository
+    public class EmployeeRepository : GenericRepository<Employee> ,IEmployyRepository
     {
-        public DepartmentRepository(CompanyDbContext context) : base(context)
+        public EmployeeRepository(CompanyDbContext context) : base(context)
         {
-
         }
     }
 }
