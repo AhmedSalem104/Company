@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Company.Services.Interfaces
 {
-    public interface IDepartmentRepository : IGenericRepository<Department>
+    public interface IEmployyRepository : IGenericRepository<Employee>
     {
-       
+       // List<Employee> SearchEmployeesByName(string Name);
+
     }
 }
