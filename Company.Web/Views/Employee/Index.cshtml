@@ -28,9 +28,9 @@
                             <th> Phone</th>
                             <th> Salary</th>
                             <th> IsActive</th>
-                            <th> IsDeleted</th>
+                         @*    <th> IsDeleted</th> *@
                             <th> @Html.DisplayNameFor(E=>E.HiringDate)</th>
-                            <th> @Html.DisplayNameFor(E=>E.CreateAt)</th>
+                          @*   <th> @Html.DisplayNameFor(E=>E.CreateAt)</th> *@
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -46,19 +46,24 @@
                                 <td>@Employee.Phone</td>
                                 <td>@Employee.Salary</td>
                                 <td>@Employee.IsActive</td>
-                                <td>@Employee.IsDelete</td>
+                              @*   <td>@Employee.IsDelete</td> *@
                                 <td>@Employee.HiringDate</td>
-                                <td>@Employee.CreateAt.ToString("yyyy-MM-dd")</td>
+                              @*   <td>@Employee.CreateAt.ToString("yyyy-MM-dd")</td> *@
                                 <td>
-                                    <a asp-controller="Employee" asp-action="Details" asp-route-id="@Employee.Id" class="btn btn-info " title="Details">
+                                    <a asp-controller="Employee" asp-action="Details" asp-route-id="@Employee.Id" class="btn btn-info btn-sm " title="Details">
                                         <i class="fa-solid fa-circle-info"></i>
                                     </a>
-                                    <a asp-controller="Employee" asp-action="Update" asp-route-id="@Employee.Id" class="btn btn-warning " title="Update">
+                                    <a asp-controller="Employee" asp-action="Update" asp-route-id="@Employee.Id" class="btn btn-warning btn-sm " title="Update">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <a asp-controller="Employee" asp-action="Delete" asp-route-id="@Employee.Id" class="btn btn-danger " title="Delete">
+                                   @*  <a asp-controller="Employee" asp-action="Delete" asp-route-id="@Employee.Id" class="btn btn-danger " title="Delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a> *@
+
+                                    <a href="@Url.Action("Delete", "Employee", new { id = Employee.Id })" class="btn btn-danger btn-sm" title="Delete">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>
+
                                    
 
                                 </td>

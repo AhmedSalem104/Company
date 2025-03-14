@@ -1,40 +1,68 @@
-﻿@model Department
+﻿@model Employee
 
 @{
-    ViewData["Title"] = "Department Details";
+    ViewData["Title"] = "Employee Details";
 }
 
-<div class="container-fluid min-vh-50 d-flex justify-content-center align-items-center" style="background-color: #f8f9fa;">
-    <div class="container mt-5 p-4 bg-white rounded shadow-lg">
+<div class="container d-flex justify-content-center align-items-center min-vh-50">
+    <div class="col-md-8 bg-white p-4 rounded shadow-lg">
         <h2 class="text-center text-primary mb-4">
-            <i class="fa-solid fa-building"></i> Department Details
+            <i class="fa-solid fa-user-tie"></i> Employee Details
         </h2>
 
-        <div class="table-responsive">
-            <table class="table table-striped table-hover border text-center shadow-sm">
-                <tbody>
-                    <tr>
-                        <th class="bg-dark text-white">Code</th>
-                        <td>@Model.Code</td>
-                    </tr>
-                    <tr>
-                        <th class="bg-dark text-white">Name</th>
-                        <td>@Model.Name</td>
-                    </tr>
-                    <tr>
-                        <th class="bg-dark text-white">Created At</th>
-                        <td>@Model.CreateAt.ToString("yyyy-MM-dd")</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-user"></i> Name:</h5>
+                        <p class="text-muted">@Model.Name</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-calendar"></i> Age:</h5>
+                        <p class="text-muted">@Model.Age</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-envelope"></i> Email:</h5>
+                        <p class="text-muted">@Model.Email</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-map-marker-alt"></i> Address:</h5>
+                        <p class="text-muted">@Model.Address</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-phone"></i> Phone:</h5>
+                        <p class="text-muted">@Model.Phone</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-money-bill"></i> Salary:</h5>
+                        <p class="text-muted">$@Model.Salary</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-calendar-check"></i> Hiring Date:</h5>
+                        <p class="text-muted">@Model.HiringDate.ToShortDateString()</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-calendar-day"></i> Created At:</h5>
+                        <p class="text-muted">@Model.CreateAt.ToShortDateString()</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-toggle-on"></i> Active:</h5>
+                        <p class="text-muted">@((Model.IsActive) ? "Yes" : "No")</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-trash"></i> Deleted:</h5>
+                        <p class="text-muted">@((Model.IsDelete) ? "Yes" : "No")</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="text-center mt-4">
-            <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-primary btn-lg shadow-sm">
-                <i class="fa-solid fa-pen-to-square"></i>  Edit
+            <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-warning shadow-sm">
+                <i class="fa-solid fa-edit"></i> Edit
             </a>
-            <a asp-action="Index" class="btn btn-secondary btn-lg shadow-sm">
-                <i class="fas fa-arrow-left"></i> Back to List
+            <a asp-action="Index" class="btn btn-secondary shadow-sm">
+                <i class="fa-solid fa-arrow-left"></i> Back to List
             </a>
         </div>
     </div>
