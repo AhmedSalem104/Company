@@ -14,12 +14,13 @@ namespace Company.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>(); // Allow DI For DepartmentRepository
+            builder.Services.AddScoped<IEmployyRepository, EmployeeRepository>(); // Allow DI For EmployeeRepository
 
             // builder.Services.AddScoped<CompanyDbContext>(); // Allow DI For CompanyDbContext
             //builder.Services.AddDbContext<CompanyDbContext>(); // Allow DI For CompanyDbContext
 
 
-           
+
 
             builder.Services.AddDbContext<CompanyDbContext>(option => { option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
                 
@@ -40,7 +41,6 @@ namespace Company.Web
             app.UseRouting();
 
             app.UseAuthorization();
-
 
             app.MapControllerRoute(
                 name: "default",
