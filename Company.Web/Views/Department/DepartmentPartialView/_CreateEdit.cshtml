@@ -1,0 +1,27 @@
+﻿
+@model Department
+
+<div class="mb-3">
+    <label asp-for="Code" class="form-label fw-bold">
+        <i class="fa-solid fa-hashtag"></i>
+        Department Code
+    </label>
+    <input asp-for="Code" class="form-control border-primary shadow-sm" placeholder="Enter department code" required />
+    <span asp-validation-for="Code" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Name" class="form-label fw-bold">
+        <i class="fa-solid fa-building-columns"></i> Department Name
+    </label>
+    <input asp-for="Name" class="form-control border-primary shadow-sm" placeholder="Enter department name" required />
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="CreateAt" class="form-label fw-bold">
+        <i class="fa-solid fa-calendar"></i> Created At
+    </label>
+    <input asp-for="CreateAt" type="date" class="form-control border-primary shadow-sm" required />
+    <span asp-validation-for="CreateAt" class="text-danger"></span>
+</div>

@@ -11,84 +11,9 @@
         </h2>
 
         <form asp-action="Create" method="post">
-            <div class="mb-3">
-                <label asp-for="Name" class="form-label fw-bold">
-                    <i class="fa-solid fa-user"></i> Employee Name
-                </label>
-                <input asp-for="Name" class="form-control border-primary shadow-sm" placeholder="Enter Employee Name" required />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
+            <parial name="EmployeePartialView/_CreateEdit" />
 
-            <div class="mb-3">
-                <label asp-for="Age" class="form-label fw-bold">
-                    <i class="fa-solid fa-calendar"></i> Employee Age
-                </label>
-                <input asp-for="Age" type="number" class="form-control border-primary shadow-sm" placeholder="Enter Employee Age" required />
-                <span asp-validation-for="Age" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Email" class="form-label fw-bold">
-                    <i class="fa-solid fa-envelope"></i> Employee Email
-                </label>
-                <input asp-for="Email" type="email" class="form-control border-primary shadow-sm" placeholder="Enter Employee Email" required />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Address" class="form-label fw-bold">
-                    <i class="fa-solid fa-location-dot"></i> Employee Address
-                </label>
-                <input asp-for="Address" class="form-control border-primary shadow-sm" placeholder="Enter Employee Address" required />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Phone" class="form-label fw-bold">
-                    <i class="fa-solid fa-phone"></i> Employee Phone
-                </label>
-                <input asp-for="Phone" type="tel" class="form-control border-primary shadow-sm" placeholder="Enter Employee Phone" required />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Salary" class="form-label fw-bold">
-                    <i class="fa-solid fa-money-bill-wave"></i> Employee Salary
-                </label>
-                <input asp-for="Salary" type="number" class="form-control border-primary shadow-sm" placeholder="Enter Employee Salary" required />
-                <span asp-validation-for="Salary" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <input asp-for="IsActive" type="checkbox" class="form-check-input border-primary shadow-sm" />
-                <label asp-for="IsActive" class="form-label fw-bold">
-                    <i class="fa-solid fa-check"></i> Employee Active
-                </label>
-            </div>
-
-            <div class="mb-3">
-                <input asp-for="IsDelete" type="checkbox" class="form-check-input border-primary shadow-sm" />
-                <label asp-for="IsDelete" class="form-label fw-bold">
-                    <i class="fa-solid fa-trash"></i> Employee IsDelete
-                </label>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="CreateAt" class="form-label fw-bold">
-                    <i class="fa-solid fa-calendar-plus"></i> Employee Created At
-                </label>
-                <input asp-for="CreateAt" type="date" class="form-control border-primary shadow-sm" required />
-                <span asp-validation-for="CreateAt" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="HiringDate" class="form-label fw-bold">
-                    <i class="fa-solid fa-user-tie"></i> Employee Hiring Date
-                </label>
-                <input asp-for="HiringDate" type="date" class="form-control border-primary shadow-sm" required />
-                <span asp-validation-for="HiringDate" class="text-danger"></span>
-            </div>
-
+          
             <div class="text-center mt-4">
                 <button type="submit" class="btn btn-primary btn-lg shadow-sm">
                     <i class="fas fa-save"></i> Save
@@ -100,3 +25,11 @@
         </form>
     </div>
 </div>
+
+@section ValidationSection{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+}
+
