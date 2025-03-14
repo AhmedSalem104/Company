@@ -1,28 +1,26 @@
 ﻿using Company.Data.Models;
 using Company.Services.Interfaces;
-using Company.Services.Repositories;
 using Company.Web.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Company.Web.Controllers
 {
-    public class DepartmentController : Controller
+    public class EmployeeController : Controller
     {
         #region Fields & Constructor
-        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IEmployyRepository _EmployeeRepository;
 
-        public DepartmentController(IDepartmentRepository departmentRepository)
+        public EmployeeController(IEmployyRepository EmployeeRepository)
         {
-            _departmentRepository = departmentRepository;
+            _EmployeeRepository = EmployeeRepository;
         }
         #endregion
 
         #region Index
         public IActionResult Index()
         {
-            var departments = _departmentRepository.GetAll();
-            return View(departments);
+            var Employees = _EmployeeRepository.GetAll();
+            return View(Employees);
         }
         #endregion
 
@@ -34,14 +32,14 @@ namespace Company.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateDepartmentDTO model)
+        public IActionResult Create(CreateEmployeeDTO model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            if (string.IsNullOrWhiteSpace(model.Code) || string.IsNullOrWhiteSpace(model.Name))
+            if ( string.IsNullOrWhiteSpace(model.Name))
             {
                 ModelState.AddModelError("", "Code and Name fields are required.");
                 return View(model);
@@ -49,18 +47,26 @@ namespace Company.Web.Controllers
 
             try
             {
-                var department = new Department()
+                var Employee = new Employee()
                 {
-                    Code = model.Code,
+                    
                     Name = model.Name,
-                    CreateAt = model.CreateAt
+                    Address = model.Address,
+                    Age = model.Age,                    
+                    CreateAt = model.CreateAt,
+                    HiringDate = model.HiringDate,
+                    Email  = model.Email,
+                    IsActive = model.IsActive,  
+                    IsDelete = model.IsDelete,
+                    Phone  = model.Phone,
+                    Salary =  model.Salary,
                 };
 
-                _departmentRepository.Add(department);
+                _EmployeeRepository.Add(Employee);
 
-                if (department.Id == 0)
+                if (Employee.Id == 0)
                 {
-                    ModelState.AddModelError("", "An error occurred while creating the department.");
+                    ModelState.AddModelError("", "An error occurred while creating the Employee.");
                     return View(model);
                 }
 
@@ -80,14 +86,14 @@ namespace Company.Web.Controllers
         {
             if (id <= 0)
             {
-                return BadRequest("Invalid department ID.");
+                return BadRequest("Invalid Employee ID.");
             }
-            var department = _departmentRepository.Get(id);
-            if (department == null)
+            var Employee = _EmployeeRepository.Get(id);
+            if (Employee == null)
             {
-                return NotFound($"Department with ID {id} not found.");
-            }         
-            return View(department);
+                return NotFound($"Employee with ID {id} not found.");
+            }
+            return View(Employee);
         }
         #endregion
 
@@ -97,35 +103,34 @@ namespace Company.Web.Controllers
         {
             if (id <= 0)
             {
-                return BadRequest("Invalid department ID.");
+                return BadRequest("Invalid Employee ID.");
             }
-            var department = _departmentRepository.Get(id);
-            if (department == null)
+            var Employee = _EmployeeRepository.Get(id);
+            if (Employee == null)
             {
-                return NotFound($"Department with ID {id} not found.");
+                return NotFound($"Employee with ID {id} not found.");
             }
-            var depart = new UpdateDepartmentDTO()
+            var Emp = new Employee()
             {
-                
-                Code = department.Code,
-                Name = department.Name,
-                CreateAt = department.CreateAt
+
+                Name = Employee.Name,
+                CreateAt = Employee.CreateAt
             };
 
-            return View(depart);
+            return View(Emp);
         }
 
 
         // EX 01
 
         [HttpPost]
-        public IActionResult Update([FromRoute] int id, Department model)
+        public IActionResult Update([FromRoute] int id, Employee model)
         {
             if (ModelState.IsValid)
             {
                 if (id == model.Id)
                 {
-                    var count = _departmentRepository.Update(model);
+                    var count = _EmployeeRepository.Update(model);
                     if (count > 0)
                     {
                         return RedirectToAction("Index");
@@ -144,12 +149,12 @@ namespace Company.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public IActionResult Update([FromRoute] int id, UpdateDepartmentDTO model)
+        //public IActionResult Update([FromRoute] int id, UpdateEmployeeDTO model)
         //{
         //    if (ModelState.IsValid)
         //    {
 
-        //        var department = new Department()
+        //        var Employee = new Employee()
         //        {
         //            Id = id,
         //            Code = model.Code,
@@ -158,14 +163,14 @@ namespace Company.Web.Controllers
         //        };
 
 
-              
-        //            var count = _departmentRepository.Update(department);
+
+        //            var count = _EmployeeRepository.Update(Employee);
         //            if (count > 0)
         //            {
         //                return RedirectToAction(nameof(Index));
         //            }
-                
-               
+
+
 
         //    }
         //    return View(model);
@@ -182,52 +187,51 @@ namespace Company.Web.Controllers
         {
             if (id <= 0)
             {
-                return BadRequest("Invalid department ID.");
+                return BadRequest("Invalid Employee ID.");
             }
 
-            var department = _departmentRepository.Get(id);
+            var Employee = _EmployeeRepository.Get(id);
 
-            if (department == null)
+            if (Employee == null)
             {
-                return NotFound($"Department with ID {id} not found.");
+                return NotFound($"Employee with ID {id} not found.");
             }
 
-            var depart = new DeleteDepartmentDTO()
+            var Emp = new Employee()
             {
-                Id = department.Id,
-                Code = department.Code,
-                Name = department.Name,
-                CreateAt = department.CreateAt
+                Id = Employee.Id,
+               
+                Name = Employee.Name,
+                CreateAt = Employee.CreateAt
             };
 
-            return View(depart);
+            return View(Emp);
         }
 
         [HttpPost]
-        public IActionResult DeleteConfirmed(DeleteDepartmentDTO model)
+        public IActionResult DeleteConfirmed(Employee model)
         {
             if (model.Id <= 0)
             {
-                return BadRequest("Invalid department ID.");
+                return BadRequest("Invalid Employee ID.");
             }
-            var existingDepartment = _departmentRepository.Get(model.Id);
-            if (existingDepartment == null)
+            var existingEmployee = _EmployeeRepository.Get(model.Id);
+            if (existingEmployee == null)
             {
-                return NotFound($"Department with ID {model.Id} not found.");
+                return NotFound($"Employee with ID {model.Id} not found.");
             }
 
             try
             {
-                _departmentRepository.Delete(existingDepartment);
+                _EmployeeRepository.Delete(existingEmployee);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "An error occurred while deleting the department. Please try again.");
+                ModelState.AddModelError("", "An error occurred while deleting the Employee. Please try again.");
                 return View(model);
             }
         }
         #endregion
     }
-
 }
