@@ -114,7 +114,15 @@ namespace Company.Web.Controllers
             {
 
                 Name = Employee.Name,
-                CreateAt = Employee.CreateAt
+                Address = Employee.Address,
+                Age = Employee.Age,
+                CreateAt = Employee.CreateAt,
+                HiringDate = Employee.HiringDate,
+                Email = Employee.Email,
+                IsActive = Employee.IsActive,
+                IsDelete = Employee.IsDelete,
+                Phone = Employee.Phone,
+                Salary = Employee.Salary,
             };
 
             return View(Emp);
