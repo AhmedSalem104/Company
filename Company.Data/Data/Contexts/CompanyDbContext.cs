@@ -1,4 +1,5 @@
-﻿using Company.Data.Models;
+﻿using Company.Data.Data.Configrations;
+using Company.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,9 +27,13 @@ namespace Company.Data.Data.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            //modelBuilder.ApplyConfiguration(new EmployeeConfigrations());
+            //modelBuilder.ApplyConfiguration(new DepartmentConfigrations());
         }
 
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
     }
 }
