@@ -14,6 +14,7 @@ namespace Company.Data.Data.Configrations
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
          
+
             builder.HasKey(e => e.Id);
 
             builder.Property(e => e.Id)
