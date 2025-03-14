@@ -13,27 +13,8 @@
 
             <form asp-action="Update" method="post">
 
-                @* <input type="hidden" asp-for="Id" /> *@
+                <partail name="DepartmentPartialView/_CreateEdit" />
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Code" class="form-label fw-bold">Department Code</label>
-                        <input asp-for="Code" class="form-control form-control-lg" placeholder="Enter department code" required />
-                        <span asp-validation-for="Code" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Name" class="form-label fw-bold">Department Name</label>
-                        <input asp-for="Name" class="form-control form-control-lg" placeholder="Enter department name" required />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label asp-for="CreateAt" class="form-label fw-bold">Created At</label>
-                    <input asp-for="CreateAt" type="date" class="form-control form-control-lg" required />
-                    <span asp-validation-for="CreateAt" class="text-danger"></span>
-                </div>
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-success btn-lg px-4 shadow-sm">
