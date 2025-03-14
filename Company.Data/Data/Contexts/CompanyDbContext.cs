@@ -30,5 +30,7 @@ namespace Company.Data.Data.Contexts
 
         public DbSet<Department> Departments { get; set; }
 
+
+
     }
 }
