@@ -1,0 +1,44 @@
+﻿@model CreateEmployeeDTO
+
+@{
+    ViewData["Title"] = "Create Employee";
+}
+<div class="container d-flex justify-content-center align-items-center min-vh-50">
+    <div class="col-md-6 bg-white p-4 rounded shadow-lg">
+        <h2 class="text-center text-primary mb-4">
+            <i class="fa-solid fa-building"></i> Create New Employee
+        </h2>
+
+        <form asp-action="Create" method="post">
+            
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label fw-bold">
+                    <i class="fa-solid fa-building-columns"></i> Employee Name
+                </label>
+                <input asp-for="Name" class="form-control border-primary shadow-sm" placeholder="Enter Employee name" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CreateAt" class="form-label fw-bold">
+                    <i class="fa-solid fa-calendar"></i> Created At
+                </label>
+                <input asp-for="CreateAt" type="date" class="form-control border-primary shadow-sm" required />
+                <span asp-validation-for="CreateAt" class="text-danger"></span>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                    <i class="fas fa-save"></i> Save
+                </button>
+                <a asp-action="Index" class="btn btn-secondary btn-lg shadow-sm">
+                    <i class="fas fa-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
