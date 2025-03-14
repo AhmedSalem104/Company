@@ -76,7 +76,7 @@ namespace Company.Web.Controllers
 
         #region Details
         [HttpGet]
-        public IActionResult Details(int id)
+        public IActionResult Details(int id,string viewName)
         {
             if (id <= 0)
             {
@@ -87,7 +87,7 @@ namespace Company.Web.Controllers
             {
                 return NotFound($"Department with ID {id} not found.");
             }         
-            return View(department);
+            return View(viewName,department);
         }
         #endregion
 
@@ -95,24 +95,26 @@ namespace Company.Web.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-            if (id <= 0)
-            {
-                return BadRequest("Invalid department ID.");
-            }
-            var department = _departmentRepository.Get(id);
-            if (department == null)
-            {
-                return NotFound($"Department with ID {id} not found.");
-            }
-            var depart = new UpdateDepartmentDTO()
-            {
-                
-                Code = department.Code,
-                Name = department.Name,
-                CreateAt = department.CreateAt
-            };
+            //if (id <= 0)
+            //{
+            //    return BadRequest("Invalid department ID.");
+            //}
+            //var department = _departmentRepository.Get(id);
+            //if (department == null)
+            //{
+            //    return NotFound($"Department with ID {id} not found.");
+            //}
+            //var depart = new UpdateDepartmentDTO()
+            //{
 
-            return View(depart);
+            //    Code = department.Code,
+            //    Name = department.Name,
+            //    CreateAt = department.CreateAt
+            //};
+
+            //return View(depart);
+
+            return Details(id, viewName: "Update");
         }
 
 
@@ -177,31 +179,34 @@ namespace Company.Web.Controllers
         #region Delete
 
 
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            if (id <= 0)
-            {
-                return BadRequest("Invalid department ID.");
-            }
+        //[HttpGet]
+        //public IActionResult Delete(int id)
+        //{
+        //    //if (id <= 0)
+        //    //{
+        //    //    return BadRequest("Invalid department ID.");
+        //    //}
 
-            var department = _departmentRepository.Get(id);
+        //    //var department = _departmentRepository.Get(id);
 
-            if (department == null)
-            {
-                return NotFound($"Department with ID {id} not found.");
-            }
+        //    //if (department == null)
+        //    //{
+        //    //    return NotFound($"Department with ID {id} not found.");
+        //    //}
 
-            var depart = new DeleteDepartmentDTO()
-            {
-                Id = department.Id,
-                Code = department.Code,
-                Name = department.Name,
-                CreateAt = department.CreateAt
-            };
+        //    //var depart = new DeleteDepartmentDTO()
+        //    //{
+        //    //    Id = department.Id,
+        //    //    Code = department.Code,
+        //    //    Name = department.Name,
+        //    //    CreateAt = department.CreateAt
+        //    //};
 
-            return View(depart);
-        }
+        //    //return View(depart);
+
+        //    return Details(id, viewName: "Delete");
+
+        //}
 
         [HttpPost]
         public IActionResult DeleteConfirmed(DeleteDepartmentDTO model)

@@ -13,7 +13,7 @@ namespace Company.Data.Data.Configrations
     {
         public void Configure(EntityTypeBuilder<Department> builder)
         {
-            builder.Property(x => x.Id).UseIdentityColumn(10, 10);
+            builder.Property(D => D.Id).UseIdentityColumn(10, 10);
         }
     }
 }
