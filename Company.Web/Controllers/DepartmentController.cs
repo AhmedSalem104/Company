@@ -104,7 +104,7 @@ namespace Company.Web.Controllers
             {
                 return NotFound($"Department with ID {id} not found.");
             }
-            var depart = new UpdateDepartmentDTO()
+            var depart = new CreateDepartmentDTO()
             {
                 
                 Code = department.Code,

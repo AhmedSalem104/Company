@@ -1,4 +1,4 @@
-﻿@model CreateDepartmentDTO
+﻿@model Department
 
 @{
     ViewData["Title"] = "Create Department";
@@ -10,8 +10,8 @@
         </h2>
 
         <form asp-action="Create" method="post">
-           
-            <partail name="DepartmentPartialView/_CreateEdit"  />
+            <partial name="DepartmentPartialView/_CreateEdit" />
+
             <div class="text-center mt-4">
                 <button type="submit" class="btn btn-primary btn-lg shadow-sm">
                     <i class="fas fa-save"></i> Save

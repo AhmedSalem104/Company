@@ -12,8 +12,8 @@
             </h2>
 
             <form asp-action="Update" method="post">
+                <partial name="EmployeePartialView/_CreateEdit"  />
 
-                <parial name="EmployeePartialView/_CreateEdit" model="Employee" />
                 <div class="text-center">
                     <button type="submit" class="btn btn-success btn-lg px-4 shadow-sm">
                         <i class="fas fa-save"></i> Save
