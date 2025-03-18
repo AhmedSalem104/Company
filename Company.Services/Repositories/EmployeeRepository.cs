@@ -1,6 +1,7 @@
 ﻿using Company.Data.Data.Contexts;
 using Company.Data.Models;
 using Company.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,17 @@ namespace Company.Services.Repositories
 {
     public class EmployeeRepository : GenericRepository<Employee> ,IEmployyRepository
     {
-        public EmployeeRepository(CompanyDbContext context) : base(context)
+        private readonly CompanyDbContext _Context;
+        public EmployeeRepository(CompanyDbContext Context) : base(Context)
         {
+            _Context = Context;
+        }
+
+        public List<Employee> SearchEmployeesByName(string Name)
+        {
+            return _Context.Employees.Include(E=>E.Department)
+                .Where(E=>E.Name.ToLower().Contains(Name.ToLower()))
+                .ToList();
         }
     }
 }
