@@ -9,10 +9,12 @@ namespace Company.Web.Controllers
     {
         #region Fields & Constructor
         private readonly IEmployyRepository _EmployeeRepository;
+        private readonly IDepartmentRepository _DepartmentRepository;
 
-        public EmployeeController(IEmployyRepository EmployeeRepository)
+        public EmployeeController(IEmployyRepository EmployeeRepository,IDepartmentRepository DepartmentRepository)
         {
             _EmployeeRepository = EmployeeRepository;
+            _DepartmentRepository = DepartmentRepository;
         }
         #endregion
 
@@ -20,6 +22,20 @@ namespace Company.Web.Controllers
         public IActionResult Index()
         {
             var Employees = _EmployeeRepository.GetAll();
+            // Dictionary : 3 Property
+            // 1.ViewData : Transfer Extra Information From Controller (Action) To View
+
+            //ViewData["Message"] = "Hello Message Form ViewData...!";
+
+            // 2.ViewBag : Transfer Extra Information From Controller (Action) To View  ===> Flexable
+            // علشان الdatatype    بيتحدد عند فى مرحلة ال RunTime ولكن عيبها التحميل على ال CLR 
+
+            //ViewBag.Message = "Hello  Message Form ViewBag";
+
+
+
+            // 2.TempData : Transfer Extra Information From Controller (Action) To the same View or anoter view  Ex : From Create To Index  
+
             return View(Employees);
         }
         #endregion
@@ -28,6 +44,9 @@ namespace Company.Web.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            var departments = _DepartmentRepository.GetAll();
+            ViewData["Departments"] = departments;
+            
             return View();
         }
 
@@ -60,6 +79,7 @@ namespace Company.Web.Controllers
                     IsDelete = model.IsDelete,
                     Phone  = model.Phone,
                     Salary =  model.Salary,
+                    DepartmentId =  model.DepartmentId,
                 };
 
                 _EmployeeRepository.Add(Employee);
@@ -69,7 +89,7 @@ namespace Company.Web.Controllers
                     ModelState.AddModelError("", "An error occurred while creating the Employee.");
                     return View(model);
                 }
-
+                TempData["Message"] = "Employee is Created"; 
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -110,6 +130,8 @@ namespace Company.Web.Controllers
             {
                 return NotFound($"Employee with ID {id} not found.");
             }
+            var departments = _DepartmentRepository.GetAll();
+            ViewData["Departments"] = departments;
             var Emp = new Employee()
             {
 
@@ -123,6 +145,7 @@ namespace Company.Web.Controllers
                 IsDelete = Employee.IsDelete,
                 Phone = Employee.Phone,
                 Salary = Employee.Salary,
+                DepartmentId = Employee.DepartmentId,
             };
 
             return View(Emp);
