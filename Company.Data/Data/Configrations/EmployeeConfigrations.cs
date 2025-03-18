@@ -56,6 +56,13 @@ namespace Company.Data.Data.Configrations
                    .HasColumnType("datetime2")
                    .HasDefaultValueSql("GETDATE()");
 
+
+            // Relation
+            builder.HasOne(E => E.Department)
+                .WithMany(D => D.Employees)
+                .HasForeignKey(E => E.DepartmentId)
+                .OnDelete(DeleteBehavior.SetNull);
+
             //builder.ToTable("Employees");
 
         }
