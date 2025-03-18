@@ -1,80 +1,103 @@
-﻿
-@model Employee
+﻿@model Employee
+@{
+    var Departments = new SelectList(ViewData["Departments"] as IEnumerable<Department>, "Id", "Name");
+}
 
-<div class="mb-3">
-    <label asp-for="Name" class="form-label fw-bold">
-        <i class="fa-solid fa-user"></i> Employee Name
-    </label>
-    <input asp-for="Name" class="form-control border-primary shadow-sm" placeholder="Enter Employee Name" required />
-    <span asp-validation-for="Name" class="text-danger"></span>
-</div>
+<div class="container">
+    <div class="row g-3">
+        <!-- الاسم والعمر -->
+        <div class="col-md-6">
+            <label asp-for="Name" class="form-label fw-bold">
+                <i class="fa-solid fa-user"></i> Employee Name
+            </label>
+            <input asp-for="Name" class="form-control border-primary shadow-sm" placeholder="Enter Employee Name" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-<div class="mb-3">
-    <label asp-for="Age" class="form-label fw-bold">
-        <i class="fa-solid fa-calendar"></i> Employee Age
-    </label>
-    <input asp-for="Age" type="number" class="form-control border-primary shadow-sm" placeholder="Enter Employee Age" required />
-    <span asp-validation-for="Age" class="text-danger"></span>
-</div>
+        <div class="col-md-6">
+            <label asp-for="Age" class="form-label fw-bold">
+                <i class="fa-solid fa-calendar"></i> Employee Age
+            </label>
+            <input asp-for="Age" min="0" type="number" class="form-control border-primary shadow-sm" placeholder="Enter Employee Age" required />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
 
-<div class="mb-3">
-    <label asp-for="Email" class="form-label fw-bold">
-        <i class="fa-solid fa-envelope"></i> Employee Email
-    </label>
-    <input asp-for="Email" type="email" class="form-control border-primary shadow-sm" placeholder="Enter Employee Email" required />
-    <span asp-validation-for="Email" class="text-danger"></span>
-</div>
+        <!-- البريد والعنوان -->
+        <div class="col-md-6">
+            <label asp-for="Email" class="form-label fw-bold">
+                <i class="fa-solid fa-envelope"></i> Employee Email
+            </label>
+            <input asp-for="Email" type="email" class="form-control border-primary shadow-sm" placeholder="Enter Employee Email" required />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
 
-<div class="mb-3">
-    <label asp-for="Address" class="form-label fw-bold">
-        <i class="fa-solid fa-location-dot"></i> Employee Address
-    </label>
-    <input asp-for="Address" class="form-control border-primary shadow-sm" placeholder="Enter Employee Address" required />
-    <span asp-validation-for="Address" class="text-danger"></span>
-</div>
+        <div class="col-md-6">
+            <label asp-for="Address" class="form-label fw-bold">
+                <i class="fa-solid fa-location-dot"></i> Employee Address
+            </label>
+            <input asp-for="Address" class="form-control border-primary shadow-sm" placeholder="Enter Employee Address" required />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
 
-<div class="mb-3">
-    <label asp-for="Phone" class="form-label fw-bold">
-        <i class="fa-solid fa-phone"></i> Employee Phone
-    </label>
-    <input asp-for="Phone" type="tel" class="form-control border-primary shadow-sm" placeholder="Enter Employee Phone" required />
-    <span asp-validation-for="Phone" class="text-danger"></span>
-</div>
+        <!-- الهاتف والراتب -->
+        <div class="col-md-6">
+            <label asp-for="Phone" class="form-label fw-bold">
+                <i class="fa-solid fa-phone"></i> Employee Phone
+            </label>
+            <input asp-for="Phone" type="tel" class="form-control border-primary shadow-sm" placeholder="Enter Employee Phone" required />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
 
-<div class="mb-3">
-    <label asp-for="Salary" class="form-label fw-bold">
-        <i class="fa-solid fa-money-bill-wave"></i> Employee Salary
-    </label>
-    <input asp-for="Salary" type="number" class="form-control border-primary shadow-sm" placeholder="Enter Employee Salary" required />
-    <span asp-validation-for="Salary" class="text-danger"></span>
-</div>
+        <div class="col-md-6">
+            <label asp-for="Salary" class="form-label fw-bold">
+                <i class="fa-solid fa-money-bill-wave"></i> Employee Salary
+            </label>
+            <input asp-for="Salary" min="0" type="number" class="form-control border-primary shadow-sm" placeholder="Enter Employee Salary" required />
+            <span asp-validation-for="Salary" class="text-danger"></span>
+        </div>
 
-<div class="mb-3">
-    <input asp-for="IsActive" type="checkbox" class="form-check-input border-primary shadow-sm" />
-    <label asp-for="IsActive" class="form-label fw-bold">
-        <i class="fa-solid fa-check"></i> Employee Active
-    </label>
-</div>
+        <!-- الحالة الوظيفية -->
+        <div class="col-md-6 d-flex align-items-center">
+            <input asp-for="IsActive" type="checkbox" class="form-check-input border-primary shadow-sm me-2" />
+            <label asp-for="IsActive" class="form-label fw-bold">
+                <i class="fa-solid fa-check"></i> Employee Active
+            </label>
+        </div>
 
-<div class="mb-3">
-    <input asp-for="IsDelete" type="checkbox" class="form-check-input border-primary shadow-sm" />
-    <label asp-for="IsDelete" class="form-label fw-bold">
-        <i class="fa-solid fa-trash"></i> Employee IsDelete
-    </label>
-</div>
+        <div class="col-md-6 d-flex align-items-center">
+            <input asp-for="IsDelete" type="checkbox" class="form-check-input border-primary shadow-sm me-2" />
+            <label asp-for="IsDelete" class="form-label fw-bold">
+                <i class="fa-solid fa-trash"></i> Employee IsDelete
+            </label>
+        </div>
 
-<div class="mb-3">
-    <label asp-for="CreateAt" class="form-label fw-bold">
-        <i class="fa-solid fa-calendar-plus"></i> Employee Created At
-    </label>
-    <input asp-for="CreateAt" type="date" class="form-control border-primary shadow-sm" required />
-    <span asp-validation-for="CreateAt" class="text-danger"></span>
-</div>
+        <!-- تاريخ الإنشاء والتوظيف -->
+        <div class="col-md-6">
+            <label asp-for="CreateAt" class="form-label fw-bold">
+                <i class="fa-solid fa-calendar-plus"></i> Employee Created At
+            </label>
+            <input asp-for="CreateAt" type="date" class="form-control border-primary shadow-sm" required />
+            <span asp-validation-for="CreateAt" class="text-danger"></span>
+        </div>
 
-<div class="mb-3">
-    <label asp-for="HiringDate" class="form-label fw-bold">
-        <i class="fa-solid fa-user-tie"></i> Employee Hiring Date
-    </label>
-    <input asp-for="HiringDate" type="date" class="form-control border-primary shadow-sm" required />
-    <span asp-validation-for="HiringDate" class="text-danger"></span>
+        <div class="col-md-6">
+            <label asp-for="HiringDate" class="form-label fw-bold">
+                <i class="fa-solid fa-user-tie"></i> Employee Hiring Date
+            </label>
+            <input asp-for="HiringDate" type="date" class="form-control border-primary shadow-sm" required />
+            <span asp-validation-for="HiringDate" class="text-danger"></span>
+        </div>
+
+        <!-- القائمة المنسدلة -->
+        <div class="col-md-12">
+            <label asp-for="DepartmentId" class="form-label fw-bold text-primary">
+                <i class="fa-solid fa-building"></i> Departments
+            </label>
+            <div class="input-group shadow-sm">
+                <select id="departmentDropdown" class="form-select border-primary text-primary fw-bold" asp-for="DepartmentId" asp-items="Departments">
+                    <option value="@null"> --- Select Department ---</option>
+                </select>
+            </div>
+        </div>
+    </div>
 </div>
