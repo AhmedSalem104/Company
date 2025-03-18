@@ -19,9 +19,19 @@ namespace Company.Web.Controllers
         #endregion
 
         #region Index
-        public IActionResult Index()
+        public IActionResult Index(string? SearchName)
         {
-            var Employees = _EmployeeRepository.GetAll();
+            IEnumerable<Employee> Employees;
+            if (string.IsNullOrEmpty(SearchName))
+            {
+                 Employees = _EmployeeRepository.GetAll();
+
+            }
+            else
+            {
+                 Employees = _EmployeeRepository.SearchEmployeesByName(SearchName);
+
+            }
             // Dictionary : 3 Property
             // 1.ViewData : Transfer Extra Information From Controller (Action) To View
 
