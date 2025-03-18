@@ -47,15 +47,33 @@
                     </div>
                     <div class="col-md-6">
                         <h5><i class="fa-solid fa-toggle-on"></i> Active:</h5>
-                        <p class="text-muted">@((Model.IsActive) ? "Yes" : "No")</p>
+                        <p class="fw-bold @(Model.IsActive ? "text-success" : "text-danger")">
+                            @((Model.IsActive) ? "Yes" : "No")
+                        </p>
                     </div>
                     <div class="col-md-6">
                         <h5><i class="fa-solid fa-trash"></i> Deleted:</h5>
-                        <p class="text-muted">@((Model.IsDelete) ? "Yes" : "No")</p>
+                        <p class="fw-bold @(Model.IsDelete ? "text-danger" : "text-success")">
+                            @((Model.IsDelete) ? "Yes" : "No")
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-building"></i> Department:</h5>
+                        <p class="fw-bold @(Model.Department != null ? "text-primary" : "text-warning")">
+                            @if (Model.Department != null)
+                            {
+                                <span>@Model.Department.Name</span>
+                            }
+                            else
+                            {
+                                <i class="fa-solid fa-ban text-danger"></i> <span>No Department</span>
+                            }
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
+
 
         <div class="text-center mt-4">
             <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-warning shadow-sm">
