@@ -1,7 +1,9 @@
-﻿using Company.Data.Models;
+﻿using AutoMapper;
+using Company.Data.Models;
 using Company.Services.Interfaces;
 using Company.Web.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
 
 namespace Company.Web.Controllers
 {
@@ -10,11 +12,15 @@ namespace Company.Web.Controllers
         #region Fields & Constructor
         private readonly IEmployyRepository _EmployeeRepository;
         private readonly IDepartmentRepository _DepartmentRepository;
+        private readonly IMapper _Mapper;
 
-        public EmployeeController(IEmployyRepository EmployeeRepository,IDepartmentRepository DepartmentRepository)
+        public EmployeeController(IEmployyRepository EmployeeRepository,
+            IDepartmentRepository DepartmentRepository,
+            IMapper Mapper)
         {
             _EmployeeRepository = EmployeeRepository;
             _DepartmentRepository = DepartmentRepository;
+            _Mapper = Mapper;
         }
         #endregion
 
@@ -76,21 +82,23 @@ namespace Company.Web.Controllers
 
             try
             {
-                var Employee = new Employee()
-                {
-                    
-                    Name = model.Name,
-                    Address = model.Address,
-                    Age = model.Age,                    
-                    CreateAt = model.CreateAt,
-                    HiringDate = model.HiringDate,
-                    Email  = model.Email,
-                    IsActive = model.IsActive,  
-                    IsDelete = model.IsDelete,
-                    Phone  = model.Phone,
-                    Salary =  model.Salary,
-                    DepartmentId =  model.DepartmentId,
-                };
+
+                var Employee = _Mapper.Map<Employee>(model);
+                //var Employee = new Employee()
+                //{
+
+                //    Name = model.Name,
+                //    Address = model.Address,
+                //    Age = model.Age,                    
+                //    CreateAt = model.CreateAt,
+                //    HiringDate = model.HiringDate,
+                //    Email  = model.Email,
+                //    IsActive = model.IsActive,  
+                //    IsDelete = model.IsDelete,
+                //    Phone  = model.Phone,
+                //    Salary =  model.Salary,
+                //    DepartmentId =  model.DepartmentId,
+                //};
 
                 _EmployeeRepository.Add(Employee);
 
@@ -142,21 +150,23 @@ namespace Company.Web.Controllers
             }
             var departments = _DepartmentRepository.GetAll();
             ViewData["Departments"] = departments;
-            var Emp = new Employee()
-            {
+            var Emp = _Mapper.Map<Employee>(Employee);
 
-                Name = Employee.Name,
-                Address = Employee.Address,
-                Age = Employee.Age,
-                CreateAt = Employee.CreateAt,
-                HiringDate = Employee.HiringDate,
-                Email = Employee.Email,
-                IsActive = Employee.IsActive,
-                IsDelete = Employee.IsDelete,
-                Phone = Employee.Phone,
-                Salary = Employee.Salary,
-                DepartmentId = Employee.DepartmentId,
-            };
+            //var Emp = new Employee()
+            //{
+
+            //    Name = Employee.Name,
+            //    Address = Employee.Address,
+            //    Age = Employee.Age,
+            //    CreateAt = Employee.CreateAt,
+            //    HiringDate = Employee.HiringDate,
+            //    Email = Employee.Email,
+            //    IsActive = Employee.IsActive,
+            //    IsDelete = Employee.IsDelete,
+            //    Phone = Employee.Phone,
+            //    Salary = Employee.Salary,
+            //    DepartmentId = Employee.DepartmentId,
+            //};
 
             return View(Emp);
         }
