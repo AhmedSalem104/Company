@@ -9,7 +9,7 @@ namespace Company.Services.Interfaces
 {
     public interface IEmployyRepository : IGenericRepository<Employee>
     {
-       // List<Employee> SearchEmployeesByName(string Name);
+        List<Employee> SearchEmployeesByName(string Name);
 
     }
 }
