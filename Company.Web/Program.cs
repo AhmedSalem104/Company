@@ -1,6 +1,8 @@
+using AutoMapper;
 using Company.Data.Data.Contexts;
 using Company.Services.Interfaces;
 using Company.Services.Repositories;
+using Company.Web.Mapping;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.Web
@@ -13,13 +15,20 @@ namespace Company.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>(); // Allow DI For DepartmentRepository
-            builder.Services.AddScoped<IEmployyRepository, EmployeeRepository>(); // Allow DI For EmployeeRepository
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();   // Allow DI For DepartmentRepository
+            builder.Services.AddScoped<IEmployyRepository, EmployeeRepository>();        // Allow DI For EmployeeRepository
+
+
+            //builder.Services.AddAutoMapper(typeof(EmployeeProfile));                     // Allow DI For EmployeeRepositor
+            builder.Services.AddAutoMapper(M=>M.AddProfile(new EmployeeProfile()));
+
 
             // builder.Services.AddScoped<CompanyDbContext>(); // Allow DI For CompanyDbContext
             //builder.Services.AddDbContext<CompanyDbContext>(); // Allow DI For CompanyDbContext
 
-
+            //builder.Services.AddScoped();     // Create Object life Time Per Request
+            //builder.Services.AddTransient();  // Create Object life Time Per Operation
+            //builder.Services.AddSingleton();  // Create Object life Time Per Application
 
 
             builder.Services.AddDbContext<CompanyDbContext>(option => { option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
