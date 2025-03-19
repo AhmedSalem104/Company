@@ -8,7 +8,8 @@ namespace Company.Web.Mapping
     {
         public EmployeeProfile() {
 
-            CreateMap<CreateEmployeeDTO, Employee>().ReverseMap();
+              CreateMap<CreateEmployeeDTO, Employee>().ReverseMap();
+              CreateMap<CreateDepartmentDTO, Department>().ReverseMap();
             //CreateMap<CreateEmployeeDTO, Employee>().ForMember(E=>E.Name,o=>o.MapFrom(s=>s.EmpName)).ReverseMap();
         }
     }
