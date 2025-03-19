@@ -18,11 +18,11 @@ namespace Company.Services.Repositories
             _Context = Context;
         }
 
-        public List<Employee> SearchEmployeesByName(string Name)
+        public async Task<List<Employee>> SearchEmployeesByNameAsync(string Name)
         {
-            return _Context.Employees.Include(E=>E.Department)
+            return await _Context.Employees.Include(E=>E.Department)
                 .Where(E=>E.Name.ToLower().Contains(Name.ToLower()))
-                .ToList();
+                .ToListAsync();
         }
     }
 }

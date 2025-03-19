@@ -23,9 +23,9 @@ namespace Company.Web.Controllers
         #endregion
 
         #region Index
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var departments = _UnitOfWork.DepartmentRepository.GetAll();
+            var departments = await _UnitOfWork.DepartmentRepository.GetAllAsync();
             return View(departments);
         }
         #endregion
@@ -38,7 +38,7 @@ namespace Company.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateDepartmentDTO model)
+        public async Task<IActionResult> Create(CreateDepartmentDTO model)
         {
             if (!ModelState.IsValid)
             {
@@ -56,8 +56,8 @@ namespace Company.Web.Controllers
                 var department = _Mapper.Map<Department>(model);
 
 
-                _UnitOfWork.DepartmentRepository.Add(department);
-                var count = _UnitOfWork.Complete();
+               await _UnitOfWork.DepartmentRepository.AddAsync(department);
+                var count = await _UnitOfWork.CompleteAsync();
                 if (department.Id == 0)
                 {
                     ModelState.AddModelError("", "An error occurred while creating the department.");
@@ -76,13 +76,13 @@ namespace Company.Web.Controllers
 
         #region Details
         [HttpGet]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id <= 0)
             {
                 return BadRequest("Invalid department ID.");
             }
-            var department = _UnitOfWork.DepartmentRepository.Get(id);
+            var department = await _UnitOfWork.DepartmentRepository.GetAsync(id);
             if (department == null)
             {
                 return NotFound($"Department with ID {id} not found.");
@@ -93,13 +93,13 @@ namespace Company.Web.Controllers
 
         #region Update
         [HttpGet]
-        public IActionResult Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
             if (id <= 0)
             {
                 return BadRequest("Invalid department ID.");
             }
-            var department = _UnitOfWork.DepartmentRepository.Get(id);
+            var department = await _UnitOfWork.DepartmentRepository.GetAsync(id);
             if (department == null)
             {
                 return NotFound($"Department with ID {id} not found.");
@@ -125,14 +125,14 @@ namespace Company.Web.Controllers
         // EX 01
 
         [HttpPost]
-        public IActionResult Update([FromRoute] int id, Department model)
+        public async Task<IActionResult> Update([FromRoute] int id, Department model)
         {
             if (ModelState.IsValid)
             {
                 if (id == model.Id)
                 {
                     _UnitOfWork.DepartmentRepository.Update(model);
-                    var count = _UnitOfWork.Complete();
+                    var count = await _UnitOfWork.CompleteAsync();
                     if (count > 0)
                     {
                         return RedirectToAction("Index");
@@ -185,14 +185,14 @@ namespace Company.Web.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id <= 0)
             {
                 return BadRequest("Invalid department ID.");
             }
 
-            var department = _UnitOfWork.DepartmentRepository.Get(id);
+            var department = await _UnitOfWork.DepartmentRepository.GetAsync(id);
 
             if (department == null)
             {
@@ -213,13 +213,13 @@ namespace Company.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteConfirmed(DeleteDepartmentDTO model)
+        public async Task<IActionResult> DeleteConfirmed(DeleteDepartmentDTO model)
         {
             if (model.Id <= 0)
             {
                 return BadRequest("Invalid department ID.");
             }
-            var existingDepartment = _UnitOfWork.DepartmentRepository.Get(model.Id);
+            var existingDepartment = await _UnitOfWork.DepartmentRepository.GetAsync(model.Id);
             if (existingDepartment == null)
             {
                 return NotFound($"Department with ID {model.Id} not found.");
@@ -228,7 +228,7 @@ namespace Company.Web.Controllers
             try
             {
                 _UnitOfWork.DepartmentRepository.Delete(existingDepartment);
-               _UnitOfWork.Complete();
+               await _UnitOfWork.CompleteAsync();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
