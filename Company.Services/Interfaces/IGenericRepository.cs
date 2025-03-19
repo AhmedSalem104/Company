@@ -11,8 +11,8 @@ namespace Company.Services.Interfaces
     {
         IEnumerable<TEntity> GetAll();
         TEntity? Get(int Id);
-        int Add(TEntity model);
-        int Update(TEntity model);
-        int Delete(TEntity model);
+        void Add(TEntity model);
+        void Update(TEntity model);
+        void Delete(TEntity model);
     }
 }
