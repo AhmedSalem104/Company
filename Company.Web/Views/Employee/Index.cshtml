@@ -42,6 +42,7 @@
                 <table class="table table-striped table-hover text-center shadow-sm">
                     <thead class="table-primary">
                         <tr>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>Age</th>
                             <th>Email</th>
@@ -58,6 +59,12 @@
                         @foreach (var Employee in Model)
                         {
                             <tr>
+                                <td>
+                                    <img src="@(string.IsNullOrEmpty(Employee.ImageName) ? "/files/images/No Image.jpg" : $"/files/images/{Employee.ImageName}")"
+                                         class="img-thumbnail" alt="Employee Image"
+                                         style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;" />
+                                </td>
+
                                 <td>@Employee.Name</td>
                                 <td>@Employee.Age</td>
                                 <td>@Employee.Email</td>
@@ -107,7 +114,7 @@
     let searchTimeout; // متغير للتحكم في تأخير تنفيذ البحث
 
     document.getElementById("searchInput").addEventListener("keyup", function () {
-        
+
 
         searchTimeout = setTimeout(() => {
             let query = this.value.trim(); // الحصول على قيمة الإدخال
