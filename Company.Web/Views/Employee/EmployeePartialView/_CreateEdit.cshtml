@@ -1,4 +1,4 @@
-﻿@model Employee
+﻿@model CreateEmployeeDTO
 @{
     var Departments = new SelectList(ViewData["Departments"] as IEnumerable<Department>, "Id", "Name");
 }
@@ -98,6 +98,14 @@
                     <option value="@null"> --- Select Department ---</option>
                 </select>
             </div>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="Image" class="form-label fw-bold">
+                <i class="fa-solid fa-envelope"></i> Employee Image
+            </label>
+            <input asp-for="Image" type="file" class="form-control border-primary shadow-sm"  required />
+            <span asp-validation-for="Image" class="text-danger"></span>
         </div>
     </div>
 </div>

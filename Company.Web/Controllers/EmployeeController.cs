@@ -2,6 +2,7 @@
 using Company.Data.Models;
 using Company.Services.Interfaces;
 using Company.Web.DTO;
+using Company.Web.Helper;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
 
@@ -82,6 +83,12 @@ namespace Company.Web.Controllers
 
             try
             {
+
+
+                if (model.Image is not null)
+                {
+                    model.ImageName = DocumentSettings.UploadFile(model.Image, folderName: "images");
+                }
 
                 var Employee = _Mapper.Map<Employee>(model);
                 //var Employee = new Employee()
