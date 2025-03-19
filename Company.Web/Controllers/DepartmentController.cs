@@ -1,4 +1,5 @@
-﻿using Company.Data.Models;
+﻿using AutoMapper;
+using Company.Data.Models;
 using Company.Services.Interfaces;
 using Company.Services.Repositories;
 using Company.Web.DTO;
@@ -11,10 +12,13 @@ namespace Company.Web.Controllers
     {
         #region Fields & Constructor
         private readonly IDepartmentRepository _departmentRepository;
+        private readonly IMapper _Mapper;
 
-        public DepartmentController(IDepartmentRepository departmentRepository)
+
+        public DepartmentController(IDepartmentRepository departmentRepository, IMapper Mapper)
         {
             _departmentRepository = departmentRepository;
+            _Mapper = Mapper;
         }
         #endregion
 
@@ -49,12 +53,8 @@ namespace Company.Web.Controllers
 
             try
             {
-                var department = new Department()
-                {
-                    Code = model.Code,
-                    Name = model.Name,
-                    CreateAt = model.CreateAt
-                };
+                var department = _Mapper.Map<Department>(model);
+               
 
                 _departmentRepository.Add(department);
 
@@ -104,13 +104,19 @@ namespace Company.Web.Controllers
             {
                 return NotFound($"Department with ID {id} not found.");
             }
-            var depart = new CreateDepartmentDTO()
-            {
-                
-                Code = department.Code,
-                Name = department.Name,
-                CreateAt = department.CreateAt
-            };
+
+            var depart = _Mapper.Map<CreateDepartmentDTO>(department);
+
+
+
+
+            //var depart = new CreateDepartmentDTO()
+            //{
+
+            //    Code = department.Code,
+            //    Name = department.Name,
+            //    CreateAt = department.CreateAt
+            //};
 
             return View(depart);
         }
@@ -192,13 +198,15 @@ namespace Company.Web.Controllers
                 return NotFound($"Department with ID {id} not found.");
             }
 
-            var depart = new DeleteDepartmentDTO()
-            {
-                Id = department.Id,
-                Code = department.Code,
-                Name = department.Name,
-                CreateAt = department.CreateAt
-            };
+            var depart = _Mapper.Map<Department>(department);
+
+            //var depart = new DeleteDepartmentDTO()
+            //{
+            //    Id = department.Id,
+            //    Code = department.Code,
+            //    Name = department.Name,
+            //    CreateAt = department.CreateAt
+            //};
 
             return View(depart);
         }
