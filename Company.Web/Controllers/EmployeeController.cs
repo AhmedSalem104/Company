@@ -158,23 +158,9 @@ namespace Company.Web.Controllers
             }
             var departments = _UnitOfWork.DepartmentRepository.GetAll();
             ViewData["Departments"] = departments;
-            var Emp = _Mapper.Map<Employee>(Employee);
 
-            //var Emp = new Employee()
-            //{
+            var Emp = _Mapper.Map<CreateEmployeeDTO>(Employee);
 
-            //    Name = Employee.Name,
-            //    Address = Employee.Address,
-            //    Age = Employee.Age,
-            //    CreateAt = Employee.CreateAt,
-            //    HiringDate = Employee.HiringDate,
-            //    Email = Employee.Email,
-            //    IsActive = Employee.IsActive,
-            //    IsDelete = Employee.IsDelete,
-            //    Phone = Employee.Phone,
-            //    Salary = Employee.Salary,
-            //    DepartmentId = Employee.DepartmentId,
-            //};
 
             return View(Emp);
         }
@@ -183,22 +169,30 @@ namespace Company.Web.Controllers
         // EX 01
 
         [HttpPost]
-        public IActionResult Update([FromRoute] int id, Employee model)
+        public IActionResult Update([FromRoute] int id, CreateEmployeeDTO model)
         {
             if (ModelState.IsValid)
             {
-                if (id == model.Id)
+
+
+                if (model.ImageName is not null)
                 {
-                   _UnitOfWork.EmployyRepository.Update(model);
-                    var count = _UnitOfWork.Complete();
-                    if (count > 0)
-                    {
-                        return RedirectToAction("Index");
-                    }
+                    DocumentSettings.DeleteFile(model.ImageName, folderName: "images");
                 }
-                else
+
+                if (model.Image is not null)
                 {
-                    return BadRequest();
+                    model.ImageName = DocumentSettings.UploadFile(model.Image, folderName: "images");
+                }
+
+                var employee = _Mapper.Map<Employee>(model);
+                employee.Id = id;
+                _UnitOfWork.EmployyRepository.Update(employee);
+                var count = _UnitOfWork.Complete();
+
+                if (count > 0)
+                {
+                    return RedirectToAction(nameof(Index));
                 }
 
             }
@@ -269,7 +263,7 @@ namespace Company.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteConfirmed(Employee model)
+        public IActionResult DeleteConfirmed( Employee model)
         {
             if (model.Id <= 0)
             {
@@ -283,6 +277,11 @@ namespace Company.Web.Controllers
 
             try
             {
+                if (model.ImageName is not null)
+                {
+                    DocumentSettings.DeleteFile(model.ImageName, folderName: "images");
+                }
+
                 _UnitOfWork.EmployyRepository.Delete(existingEmployee);
                 var count = _UnitOfWork.Complete();
                 return RedirectToAction("Index");
