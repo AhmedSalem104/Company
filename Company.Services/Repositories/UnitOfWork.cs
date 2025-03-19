@@ -23,14 +23,16 @@ namespace Company.Services.Repositories
             EmployyRepository = new EmployeeRepository(_Context);
         }
 
-        public int Complete()
+        public async Task<int> CompleteAsync()
         {
-            return _Context.SaveChanges();
+            return await _Context.SaveChangesAsync();
         }
 
-        public void Dispose() // هذه الدالة ستنفذ تلقائيا بعد الانتهاء من الانتهاء من التعامل مع ال Database
+
+
+        public async ValueTask DisposeAsync() // هذه الدالة ستنفذ تلقائيا بعد الانتهاء من الانتهاء من التعامل مع ال Database
         {
-             _Context.Dispose();
+            await _Context.DisposeAsync();
         }
     }
 }

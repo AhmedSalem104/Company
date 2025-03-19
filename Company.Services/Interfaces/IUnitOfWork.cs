@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Company.Services.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IAsyncDisposable
     {
         IDepartmentRepository DepartmentRepository { get; }
         IEmployyRepository EmployyRepository { get; }
-        int Complete();
+        Task<int> CompleteAsync();
     }
 }

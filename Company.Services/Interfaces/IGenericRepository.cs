@@ -9,9 +9,9 @@ namespace Company.Services.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : BaseEntity
     {
-        IEnumerable<TEntity> GetAll();
-        TEntity? Get(int Id);
-        void Add(TEntity model);
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<TEntity?> GetAsync(int Id);
+        Task AddAsync(TEntity model);
         void Update(TEntity model);
         void Delete(TEntity model);
     }
