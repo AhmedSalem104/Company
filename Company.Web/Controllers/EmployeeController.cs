@@ -26,17 +26,17 @@ namespace Company.Web.Controllers
         #endregion
 
         #region Index
-        public IActionResult Index(string? SearchName)
+        public async Task<IActionResult> Index(string? SearchName)
         {
             IEnumerable<Employee> Employees;
             if (string.IsNullOrEmpty(SearchName))
             {
-                 Employees = _UnitOfWork.EmployyRepository.GetAll();
+                 Employees = await _UnitOfWork.EmployyRepository.GetAllAsync();
 
             }
             else
             {
-                 Employees = _UnitOfWork.EmployyRepository.SearchEmployeesByName(SearchName);
+                 Employees = await _UnitOfWork.EmployyRepository.SearchEmployeesByNameAsync(SearchName);
 
             }
             // Dictionary : 3 Property
@@ -59,16 +59,16 @@ namespace Company.Web.Controllers
 
         #region Create
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var departments = _UnitOfWork.DepartmentRepository.GetAll();
+            var departments = await _UnitOfWork.DepartmentRepository.GetAllAsync();
             ViewData["Departments"] = departments;
             
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(CreateEmployeeDTO model)
+        public async Task<IActionResult> Create(CreateEmployeeDTO model)
         {
             if (!ModelState.IsValid)
             {
@@ -107,8 +107,9 @@ namespace Company.Web.Controllers
                 //    DepartmentId =  model.DepartmentId,
                 //};
 
-                _UnitOfWork.EmployyRepository.Add(Employee);
-                 _UnitOfWork.Complete();
+                await _UnitOfWork.EmployyRepository.AddAsync(Employee);
+
+                 await _UnitOfWork.CompleteAsync();
 
                 if (Employee.Id == 0)
                 {
@@ -128,13 +129,13 @@ namespace Company.Web.Controllers
 
         #region Details
         [HttpGet]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id <= 0)
             {
                 return BadRequest("Invalid Employee ID.");
             }
-            var Employee = _UnitOfWork.EmployyRepository.Get(id);
+            var Employee = await _UnitOfWork.EmployyRepository.GetAsync(id);
             if (Employee == null)
             {
                 return NotFound($"Employee with ID {id} not found.");
@@ -145,18 +146,18 @@ namespace Company.Web.Controllers
 
         #region Update
         [HttpGet]
-        public IActionResult Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
             if (id <= 0)
             {
                 return BadRequest("Invalid Employee ID.");
             }
-            var Employee = _UnitOfWork.EmployyRepository.Get(id);
+            var Employee = await _UnitOfWork.EmployyRepository.GetAsync(id);
             if (Employee == null)
             {
                 return NotFound($"Employee with ID {id} not found.");
             }
-            var departments = _UnitOfWork.DepartmentRepository.GetAll();
+            var departments = await _UnitOfWork.DepartmentRepository.GetAllAsync();
             ViewData["Departments"] = departments;
 
             var Emp = _Mapper.Map<CreateEmployeeDTO>(Employee);
@@ -169,7 +170,7 @@ namespace Company.Web.Controllers
         // EX 01
 
         [HttpPost]
-        public IActionResult Update([FromRoute] int id, CreateEmployeeDTO model)
+        public async Task<IActionResult> Update([FromRoute] int id, CreateEmployeeDTO model)
         {
             if (ModelState.IsValid)
             {
@@ -188,7 +189,7 @@ namespace Company.Web.Controllers
                 var employee = _Mapper.Map<Employee>(model);
                 employee.Id = id;
                 _UnitOfWork.EmployyRepository.Update(employee);
-                var count = _UnitOfWork.Complete();
+                var count = await _UnitOfWork.CompleteAsync();
 
                 if (count > 0)
                 {
@@ -237,14 +238,14 @@ namespace Company.Web.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id <= 0)
             {
                 return BadRequest("Invalid Employee ID.");
             }
 
-            var Employee = _UnitOfWork.EmployyRepository.Get(id);
+            var Employee = await _UnitOfWork.EmployyRepository.GetAsync(id);
 
             if (Employee == null)
             {
@@ -263,13 +264,13 @@ namespace Company.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteConfirmed( Employee model)
+        public async Task<IActionResult> DeleteConfirmed( Employee model)
         {
             if (model.Id <= 0)
             {
                 return BadRequest("Invalid Employee ID.");
             }
-            var existingEmployee = _UnitOfWork.EmployyRepository.Get(model.Id);
+            var existingEmployee = await _UnitOfWork.EmployyRepository.GetAsync(model.Id);
             if (existingEmployee == null)
             {
                 return NotFound($"Employee with ID {model.Id} not found.");
@@ -283,7 +284,7 @@ namespace Company.Web.Controllers
                 }
 
                 _UnitOfWork.EmployyRepository.Delete(existingEmployee);
-                var count = _UnitOfWork.Complete();
+                var count = await _UnitOfWork.CompleteAsync();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
