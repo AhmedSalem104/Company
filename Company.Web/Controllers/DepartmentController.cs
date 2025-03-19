@@ -11,13 +11,13 @@ namespace Company.Web.Controllers
     public class DepartmentController : Controller
     {
         #region Fields & Constructor
-        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IUnitOfWork _UnitOfWork;
         private readonly IMapper _Mapper;
 
 
-        public DepartmentController(IDepartmentRepository departmentRepository, IMapper Mapper)
+        public DepartmentController(IUnitOfWork UnitOfWork, IMapper Mapper)
         {
-            _departmentRepository = departmentRepository;
+            _UnitOfWork = UnitOfWork;
             _Mapper = Mapper;
         }
         #endregion
@@ -25,7 +25,7 @@ namespace Company.Web.Controllers
         #region Index
         public IActionResult Index()
         {
-            var departments = _departmentRepository.GetAll();
+            var departments = _UnitOfWork.DepartmentRepository.GetAll();
             return View(departments);
         }
         #endregion
@@ -54,10 +54,10 @@ namespace Company.Web.Controllers
             try
             {
                 var department = _Mapper.Map<Department>(model);
-               
 
-                _departmentRepository.Add(department);
 
+                _UnitOfWork.DepartmentRepository.Add(department);
+                var count = _UnitOfWork.Complete();
                 if (department.Id == 0)
                 {
                     ModelState.AddModelError("", "An error occurred while creating the department.");
@@ -82,7 +82,7 @@ namespace Company.Web.Controllers
             {
                 return BadRequest("Invalid department ID.");
             }
-            var department = _departmentRepository.Get(id);
+            var department = _UnitOfWork.DepartmentRepository.Get(id);
             if (department == null)
             {
                 return NotFound($"Department with ID {id} not found.");
@@ -99,7 +99,7 @@ namespace Company.Web.Controllers
             {
                 return BadRequest("Invalid department ID.");
             }
-            var department = _departmentRepository.Get(id);
+            var department = _UnitOfWork.DepartmentRepository.Get(id);
             if (department == null)
             {
                 return NotFound($"Department with ID {id} not found.");
@@ -131,7 +131,8 @@ namespace Company.Web.Controllers
             {
                 if (id == model.Id)
                 {
-                    var count = _departmentRepository.Update(model);
+                    _UnitOfWork.DepartmentRepository.Update(model);
+                    var count = _UnitOfWork.Complete();
                     if (count > 0)
                     {
                         return RedirectToAction("Index");
@@ -191,7 +192,7 @@ namespace Company.Web.Controllers
                 return BadRequest("Invalid department ID.");
             }
 
-            var department = _departmentRepository.Get(id);
+            var department = _UnitOfWork.DepartmentRepository.Get(id);
 
             if (department == null)
             {
@@ -218,7 +219,7 @@ namespace Company.Web.Controllers
             {
                 return BadRequest("Invalid department ID.");
             }
-            var existingDepartment = _departmentRepository.Get(model.Id);
+            var existingDepartment = _UnitOfWork.DepartmentRepository.Get(model.Id);
             if (existingDepartment == null)
             {
                 return NotFound($"Department with ID {model.Id} not found.");
@@ -226,7 +227,8 @@ namespace Company.Web.Controllers
 
             try
             {
-                _departmentRepository.Delete(existingDepartment);
+                _UnitOfWork.DepartmentRepository.Delete(existingDepartment);
+               _UnitOfWork.Complete();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
