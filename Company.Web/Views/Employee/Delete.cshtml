@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <form asp-action="DeleteConfirmed" method="post" class="text-center mt-4">
+        <form asp-controller="Employee" asp-action="DeleteConfirmed" method="post" class="text-center mt-4">
             <input type="hidden" asp-for="@Model.Id" />
             <button type="submit" class="btn btn-danger shadow-sm">
                 <i class="fa-solid fa-trash-alt"></i> Delete
