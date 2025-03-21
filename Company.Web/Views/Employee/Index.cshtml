@@ -90,7 +90,7 @@
                                     <a asp-controller="Employee" asp-action="Update" asp-route-id="@Employee.Id" class="btn btn-warning btn-sm" title="Update">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <a href="@Url.Action("Delete", "Employee", new { id = Employee.Id })" class="btn btn-danger btn-sm" title="Delete">
+                                     <a asp-controller="Employee" asp-action="Delete" asp-route-id="@Employee.Id" class="btn btn-danger btn-sm" title="Delete">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>
                                 </td>
@@ -109,7 +109,7 @@
         }
     </div>
 </div>
-
+@* 
 <script>
     let searchTimeout; // متغير للتحكم في تأخير تنفيذ البحث
 
@@ -123,4 +123,4 @@
             }
         }, 1000); // تأخير التنفيذ لمدة 500 مللي ثانية (نصف ثانية)
     });
-</script>
+</script> *@
