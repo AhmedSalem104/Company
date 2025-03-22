@@ -25,4 +25,11 @@
     <Folder Include="wwwroot\Files\Videos\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\js\deleteConfirmation.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

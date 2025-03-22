@@ -104,25 +104,11 @@ namespace Company.Web.Controllers
             {
                 return NotFound($"Department with ID {id} not found.");
             }
-
             var depart = _Mapper.Map<CreateDepartmentDTO>(department);
-
-
-
-
-            //var depart = new CreateDepartmentDTO()
-            //{
-
-            //    Code = department.Code,
-            //    Name = department.Name,
-            //    CreateAt = department.CreateAt
-            //};
-
             return View(depart);
         }
 
 
-        // EX 01
 
         [HttpPost]
         public async Task<IActionResult> Update([FromRoute] int id, Department model)
@@ -147,96 +133,26 @@ namespace Company.Web.Controllers
             return View(model);
         }
 
-        // EX 02
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        //public IActionResult Update([FromRoute] int id, UpdateDepartmentDTO model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-
-        //        var department = new Department()
-        //        {
-        //            Id = id,
-        //            Code = model.Code,
-        //            Name = model.Name,
-        //            CreateAt = model.CreateAt
-        //        };
-
-
-              
-        //            var count = _departmentRepository.Update(department);
-        //            if (count > 0)
-        //            {
-        //                return RedirectToAction(nameof(Index));
-        //            }
-                
-               
-
-        //    }
-        //    return View(model);
-        //}
-
-
         #endregion
 
         #region Delete
 
-
-        [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (id <= 0)
-            {
-                return BadRequest("Invalid department ID.");
-            }
+                return BadRequest(new { message = "Invalid ID" });
 
             var department = await _UnitOfWork.DepartmentRepository.GetAsync(id);
-
             if (department == null)
-            {
-                return NotFound($"Department with ID {id} not found.");
-            }
+                return NotFound(new { message = "Department not found" });
 
-            var depart = _Mapper.Map<Department>(department);
+            _UnitOfWork.DepartmentRepository.Delete(department);
+            await _UnitOfWork.CompleteAsync();
 
-            //var depart = new DeleteDepartmentDTO()
-            //{
-            //    Id = department.Id,
-            //    Code = department.Code,
-            //    Name = department.Name,
-            //    CreateAt = department.CreateAt
-            //};
-
-            return View(depart);
+            return Ok(new { message = "Department deleted successfully" });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(DeleteDepartmentDTO model)
-        {
-            if (model.Id <= 0)
-            {
-                return BadRequest("Invalid department ID.");
-            }
-            var existingDepartment = await _UnitOfWork.DepartmentRepository.GetAsync(model.Id);
-            if (existingDepartment == null)
-            {
-                return NotFound($"Department with ID {model.Id} not found.");
-            }
-
-            try
-            {
-                _UnitOfWork.DepartmentRepository.Delete(existingDepartment);
-               await _UnitOfWork.CompleteAsync();
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "An error occurred while deleting the department. Please try again.");
-                return View(model);
-            }
-        }
         #endregion
     }
 
