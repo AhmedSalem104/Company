@@ -200,36 +200,7 @@ namespace Company.Web.Controllers
             return View(model);
         }
 
-        // EX 02
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        //public IActionResult Update([FromRoute] int id, UpdateEmployeeDTO model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-
-        //        var Employee = new Employee()
-        //        {
-        //            Id = id,
-        //            Code = model.Code,
-        //            Name = model.Name,
-        //            CreateAt = model.CreateAt
-        //        };
-
-
-
-        //            var count = _EmployeeRepository.Update(Employee);
-        //            if (count > 0)
-        //            {
-        //                return RedirectToAction(nameof(Index));
-        //            }
-
-
-
-        //    }
-        //    return View(model);
-        //}
+       
 
 
         #endregion
@@ -237,61 +208,20 @@ namespace Company.Web.Controllers
         #region Delete
 
 
-        [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (id <= 0)
-            {
-                return BadRequest("Invalid Employee ID.");
-            }
+                return BadRequest(new { message = "Invalid ID" });
 
-            var Employee = await _UnitOfWork.EmployyRepository.GetAsync(id);
+            var employee = await _UnitOfWork.EmployyRepository.GetAsync(id);
+            if (employee == null)
+                return NotFound(new { message = "Department not found" });
 
-            if (Employee == null)
-            {
-                return NotFound($"Employee with ID {id} not found.");
-            }
+            _UnitOfWork.EmployyRepository.Delete(employee);
+            await _UnitOfWork.CompleteAsync();
 
-            var Emp = new Employee()
-            {
-                Id = Employee.Id,
-               
-                Name = Employee.Name,
-                CreateAt = Employee.CreateAt
-            };
-
-            return View(Emp);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed( Employee model)
-        {
-            if (model.Id <= 0)
-            {
-                return BadRequest("Invalid Employee ID.");
-            }
-            var existingEmployee = await _UnitOfWork.EmployyRepository.GetAsync(model.Id);
-            if (existingEmployee == null)
-            {
-                return NotFound($"Employee with ID {model.Id} not found.");
-            }
-
-            try
-            {
-                if (model.ImageName is not null)
-                {
-                    DocumentSettings.DeleteFile(model.ImageName, folderName: "images");
-                }
-
-                _UnitOfWork.EmployyRepository.Delete(existingEmployee);
-                var count = await _UnitOfWork.CompleteAsync();
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "An error occurred while deleting the Employee. Please try again.");
-                return View(model);
-            }
+            return Ok(new { message = "Employee deleted successfully" });
         }
         #endregion
     }

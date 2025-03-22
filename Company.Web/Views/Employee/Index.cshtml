@@ -90,7 +90,7 @@
                                     <a asp-controller="Employee" asp-action="Update" asp-route-id="@Employee.Id" class="btn btn-warning btn-sm" title="Update">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                     <a asp-controller="Employee" asp-action="Delete" asp-route-id="@Employee.Id" class="btn btn-danger btn-sm" title="Delete">
+                                    <a onclick="confirmDelete(@Employee.Id,'Employee')" class="btn btn-danger " title="Delete">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>
                                 </td>
@@ -109,18 +109,5 @@
         }
     </div>
 </div>
-@* 
-<script>
-    let searchTimeout; // متغير للتحكم في تأخير تنفيذ البحث
 
-    document.getElementById("searchInput").addEventListener("keyup", function () {
-
-
-        searchTimeout = setTimeout(() => {
-            let query = this.value.trim(); // الحصول على قيمة الإدخال
-            if (query.length > 0) {
-                document.getElementById("searchForm").submit(); // تنفيذ البحث تلقائيًا
-            }
-        }, 1000); // تأخير التنفيذ لمدة 500 مللي ثانية (نصف ثانية)
-    });
-</script> *@
+<script src="~/js/deleteconfirmation.js"></script>
