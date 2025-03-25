@@ -4,11 +4,14 @@ using Company.Services.Interfaces;
 using Company.Services.Repositories;
 using Company.Web.DTO;
 using Company.Web.Helper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
 
 namespace Company.Web.Controllers
 {
+    [Authorize]
+
     public class EmployeeController : Controller
     {
         #region Fields & Constructor

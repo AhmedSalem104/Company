@@ -1,0 +1,50 @@
+﻿
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Company.Web</title>
+    <link href="~/css/authstyle.css" rel="stylesheet" />
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/Company.Web.styles.css" asp-append-version="true" />
+	<link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+	<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+</head>
+<style>
+    body {
+        background-color: #1E90FF;
+    }
+</style>
+<body>
+    <header class="bg-primary text-white py-4 shadow-lg">
+        <div class="container text-center">
+            <h1 class="fw-bold">
+                <i class="fas fa-globe"></i> @ViewData["Title"]
+            </h1>
+        </div>
+    </header>
+
+    <div class="container mt-4">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+   @*  <footer class="footer bg-dark text-white py-3 shadow-lg">
+        <div class="container text-center">
+            <p class="mb-0">
+                <i class="fas fa-copyright"></i> @DateTime.Now.Year - @ViewData["Title"]
+            </p>
+        </div>
+    </footer> *@
+
+
+
+</body>
+</html>
