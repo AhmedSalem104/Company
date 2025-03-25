@@ -24,6 +24,11 @@
 
                 <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
+
+                        <button asp-action="SignOut" asp-controller="Account" class="p-2 text-white hover:text-red-500">
+                            <i class="fas fa-sign-out-alt text-xl"></i>
+                        </button>
+
                         <li class="nav-item">
                             <a class="nav-link text-white " asp-controller="Home" asp-action="Index">
                                 <i class="fa-solid fa-house"></i> Home
@@ -41,6 +46,16 @@
                         </li> <li class="nav-item">
                             <a class="nav-link text-white " asp-controller="Employee" asp-action="Index">
                                 <i class="fa-solid fa-user-tie"></i> Employees
+                            </a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link text-white " asp-controller="Account" asp-action="SignUp">
+                                 Register
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white " asp-controller="Account" asp-action="SignIn">
+                                Login
                             </a>
                         </li>
                     </ul>
