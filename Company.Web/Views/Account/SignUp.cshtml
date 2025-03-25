@@ -1,0 +1,74 @@
+﻿@model Company.Web.DTO.SignUpDTO
+
+@{
+    ViewData["Title"] = "Sign Up";
+    Layout = "_AuthLayout";
+}
+
+<div class="container">
+    <div class="row justify-content-center align-items-center vh-50">
+
+   
+
+        <div class="col-md-6">
+            <!-- فورم التسجيل في منتصف الشاشة -->
+            <div class="card shadow-lg p-5 text-center">
+                <h3 class="text-center mb-4">Create a New Account</h3>
+
+                <form asp-action="SignUp" method="post">
+                    <div class="form-group">
+                        <input asp-for="UserName" class="form-control validation-input" placeholder=" ">
+                        <label class="form-label"><i class="fas fa-user"></i> Username</label>
+                        <span class="text-danger" asp-validation-for="UserName"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="FName" class="form-control validation-input" placeholder=" ">
+                        <label class="form-label"><i class="fas fa-user"></i> First Name</label>
+                        <span class="text-danger" asp-validation-for="FName"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="LName" class="form-control validation-input" placeholder=" ">
+                        <label class="form-label"><i class="fas fa-user"></i> Last Name</label>
+                        <span class="text-danger" asp-validation-for="LName"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Email" class="form-control validation-input" placeholder=" ">
+                        <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Password" type="password" class="form-control validation-input" placeholder=" ">
+                        <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="ConfirmePassword" type="password" class="form-control validation-input" placeholder=" ">
+                        <label class="form-label"><i class="fas fa-lock"></i> Confirm Password</label>
+                        <span class="text-danger" asp-validation-for="ConfirmePassword"></span>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input asp-for="IsAgree" class="form-check-input">
+                        <label class="form-check-label">
+                            I agree to the <a href="#">Terms & Conditions</a>
+                        </label>
+                        <span class="text-danger" asp-validation-for="IsAgree"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </button>
+                </form>
+                <p> Aready Have Account ? <a asp-action="SignIn"> Login</a></p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

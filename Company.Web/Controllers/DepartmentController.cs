@@ -3,11 +3,13 @@ using Company.Data.Models;
 using Company.Services.Interfaces;
 using Company.Services.Repositories;
 using Company.Web.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.Web.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         #region Fields & Constructor
