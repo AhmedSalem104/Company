@@ -52,19 +52,24 @@
                         <span class="text-danger" asp-validation-for="ConfirmePassword"></span>
                     </div>
 
-                    <div class="form-check mb-3">
+                    <div class="form-check mb-3 d-flex align-items-center gap-2">
                         <input asp-for="IsAgree" class="form-check-input">
-                        <label class="form-check-label">
-                            I agree to the <a href="#">Terms & Conditions</a>
+                        <label class="form-check-label" for="IsAgree">
+                            I agree to the <a href="#" class="text-primary text-decoration-none">Terms & Conditions</a>
                         </label>
-                        <span class="text-danger" asp-validation-for="IsAgree"></span>
                     </div>
+                    <span class="text-danger d-block mt-1" asp-validation-for="IsAgree"></span>
 
+
+                    <div class="mt-3">
                     <button type="submit" class="btn btn-primary w-100">
                         <i class="fas fa-user-plus"></i> Sign Up
                     </button>
+                    </div>
                 </form>
-                <p> Aready Have Account ? <a asp-action="SignIn"> Login</a></p>
+                <div class="mt-3">
+                    <p> Aready Have Account ? <a asp-action="SignIn"> Login</a></p>
+               </div>
 
             </div>
         </div>
