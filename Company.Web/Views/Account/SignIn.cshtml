@@ -1,6 +1,6 @@
 ﻿@model Company.Web.DTO.SignInDTO
 @{
-    ViewData["Title"] = "SignIn";
+    ViewData["Title"] = "Sign In";
     Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
 
@@ -43,11 +43,18 @@
                     </button>
                     </div>
                 </form>
-                <div class="mt-3">
-                    <p> Don`t Have Account? <a asp-action="SignUp"> Create New Account</a></p>
-
-                </div>      
+                <div class="mt-3 text-center">
+                    <p class="mb-2 text-gray-700">
+                        Don't Have an Account?
+                        <a asp-action="SignUp" class="text-primary fw-bold text-decoration-none">Create New Account</a>
+                    </p>
+                    <p class="text-gray-700">
+                        Forgot Password?
+                        <a asp-action="ForgetPassword" class="text-danger fw-bold text-decoration-none">Reset Password</a>
+                    </p>
                 </div>
+
+            </div>
         </div>
     </div>
 </div>
