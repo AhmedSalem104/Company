@@ -8,8 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Company.Web.Controllers
 {
-    //[AllowAnonymous]
-    [Authorize]
+
     public class AccountController : Controller
     {
 		private readonly UserManager<AppUser> _UserManager;
