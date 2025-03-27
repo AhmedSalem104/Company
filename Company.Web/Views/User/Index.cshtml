@@ -42,12 +42,12 @@
                 <table class="table table-striped table-hover text-center shadow-sm">
                     <thead class="table-primary">
                         <tr>
-                            <th>Id</th>
+                        
                             <th>Name</th>
                             <th>FName</th>
                             <th>LName</th>
                             <th>Email</th>
-                            <th>Role</th>
+                            <th>Roles</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -55,18 +55,25 @@
                         @foreach (var User in Model)
                         {
                             <tr>                           
-                                <td>@User.Id</td>
+                               
                                 <td>@User.UserName</td>
                                 <td>@User.FName</td>
                                 <td>@User.LName</td>
                                 <td>@User.Email</td>
-                                @if (User.Roles != null)
-                                {
-                                    foreach (var role in User.Roles)
+                                <td>
+                                    @if (User.Roles != null && User.Roles.Any())
                                     {
-                                        <span>@role</span>
+                                        foreach (var role in User.Roles)
+                                        {
+                                            <span class="badge bg-primary me-1">@role</span>
+                                        }
                                     }
-                                }
+                                    else
+                                    {
+                                        <span class="text-muted">No roles assigned</span>
+                                    }
+                                </td>
+
 
                                
                                 <td>

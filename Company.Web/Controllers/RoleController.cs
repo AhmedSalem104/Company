@@ -1,20 +1,25 @@
 ﻿using Company.Data.Models;
 using Company.Web.DTO;
+using Company.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Drawing;
 
 namespace Company.Web.Controllers
 {
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole>  _RoleManager;
+        private readonly UserManager<AppUser>  _UserManager;
 
 
 
-        public RoleController(RoleManager<IdentityRole> RoleManager)
+        public RoleController(RoleManager<IdentityRole> RoleManager, UserManager<AppUser> UserManager)
         {
             _RoleManager = RoleManager;
+            _UserManager = UserManager;
         }
 
         #region Index
@@ -104,15 +109,12 @@ namespace Company.Web.Controllers
 
         #region Update
         [HttpGet]
+
         public async Task<IActionResult> Update(string? id)
         {
 
             return await Details(id, "Update");
         }
-
-
-  
-
         [HttpPost]
         public async Task<IActionResult> Update([FromRoute] string id, RoleToReturnDTO model)
         {
@@ -140,10 +142,6 @@ namespace Company.Web.Controllers
             }
             return View(model);
         }
-
-
-
-
         #endregion
 
         #region Delete
@@ -165,5 +163,69 @@ namespace Company.Web.Controllers
             return Ok(new { message = "User deleted successfully" });
         }
         #endregion
+
+        #region
+
+        [HttpGet]
+    
+        public async Task<IActionResult> ManageUsersInRole(string roleId)
+        {
+            var role = await _RoleManager.FindByIdAsync(roleId);
+            if (role == null) return NotFound();
+            ViewData["RoleId"] = roleId;
+
+            var usersInRole = new List<UserInRoleViewModel>();
+            var users = await _UserManager.Users.ToListAsync();
+
+            foreach (var user in users)
+            {
+                var userInRole = new UserInRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IsSelected = await _UserManager.IsInRoleAsync(user, role.Name)
+                };
+
+                usersInRole.Add(userInRole);
+            }
+
+            return View(usersInRole);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManageUsersInRole(string roleId, List<UserInRoleViewModel> users)
+        {
+            var role = await _RoleManager.FindByIdAsync(roleId);
+            if (role is null) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                foreach (var user in users)
+                {
+                    var appUser = await _UserManager.FindByIdAsync(user.UserId);
+                    if (appUser is not null)
+                    {
+                        if (user.IsSelected && !await _UserManager.IsInRoleAsync(appUser, role.Name))
+                        {
+                            await _UserManager.AddToRoleAsync(appUser, role.Name);
+                        }
+                        else if (!user.IsSelected && await _UserManager.IsInRoleAsync(appUser, role.Name))
+                        {
+                            await _UserManager.RemoveFromRoleAsync(appUser, role.Name);
+                        }
+                    }
+
+                }
+
+
+            }
+            return RedirectToAction(nameof(Update), new {id = roleId});
+
+        }
+
+
+        #endregion
+
+
     }
 }
