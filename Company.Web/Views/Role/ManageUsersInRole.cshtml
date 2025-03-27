@@ -1,0 +1,96 @@
+﻿@model List<UserInRoleViewModel>
+@{
+    ViewData["Title"] = "AddOrRemoveUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var RoleId = ViewData["RoleId"] as string;
+}
+
+
+
+
+
+<h2 class="text-center my-4">Manage Users</h2>
+
+<form asp-action="ManageUsersInRole" method="post" asp-route-roleId="@RoleId">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-primary">
+                <tr>
+                    <th>#</th>
+                    <th>User Name</th>
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr onclick="toggleCheckbox(@i, this)">
+                        <td>@(i + 1)</td>
+                        <td class="text-start">@Model[i].UserName</td>
+                        <td>
+                            @Html.HiddenFor(m => m[i].UserId)
+                            @Html.HiddenFor(m => m[i].UserName)
+                            <input type="checkbox"
+                                   asp-for="@Model[i].IsSelected"
+                                   class="form-check-input d-none"
+                                   id="checkbox-@i" />
+                            <span class="custom-checkbox"></span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+        <a asp-action="Update" asp-route-id="@RoleId" class="btn btn-secondary px-5">Back To Edit</a>
+        <a asp-action="Index" class="btn btn-warning px-5">Back To Index</a>
+    </div>
+</form>
+
+<style>
+    /* تصميم الـ Checkbox ليكون مخفيًا ولكن يظل فعالًا */
+    .custom-checkbox {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #007bff;
+        border-radius: 4px;
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+    }
+
+    /* عند تحديد العنصر، يظهر داخله علامة صح */
+    tr:has(input:checked) .custom-checkbox {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        tr:has(input:checked) .custom-checkbox::after {
+            content: "✔";
+            color: white;
+            font-size: 14px;
+            position: absolute;
+            top: 0;
+            left: 3px;
+        }
+
+    /* تغيير لون الصف عند تحديده */
+    tr:has(input:checked) {
+        background-color: rgba(0, 123, 255, 0.2) !important;
+    }
+
+</style>
+
+
+<script>
+    function toggleCheckbox(index, row) {
+        let checkbox = document.getElementById(`checkbox-${index}`);
+        checkbox.checked = !checkbox.checked;
+        row.classList.toggle("table-active", checkbox.checked);
+    }
+
+</script>
+
+

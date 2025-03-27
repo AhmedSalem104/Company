@@ -3,20 +3,24 @@
 @{
     ViewData["Title"] = "Update Role";
 }
-
-<div class="container-fluid min-vh-50 d-flex justify-content-center align-items-center" style="background-color: #f8f9fa;">
-    <div class="container mt-5">
-        <div class="card shadow-lg p-4">
+<div class="container-fluid min-vh-50 d-flex justify-content-center align-items-center bg-light">
+    <div class="container">
+        <div class="card shadow-lg p-4 mx-auto" style="max-width: 600px; border-radius: 12px;">
             <h2 class="text-center text-primary mb-4">
                 <i class="fa-solid fa-pen-to-square"></i> Update Role
             </h2>
 
             <form asp-action="Update" method="post">
-
                 <partial name="RolePartialView/_CreateEdit" />
 
+                <div class="d-flex justify-content-end mt-3">
+                    <a asp-action="ManageUsersInRole" asp-route-roleId="@Model.Id" class="btn btn-outline-primary btn-lg px-4 shadow-sm">
+                        <i class="fas fa-users"></i> Manage Users
+                    </a>
+                   
+                </div>
 
-                <div class="text-center mt-4">
+                <div class="text-center mt-3">
                     <button type="submit" class="btn btn-success btn-lg px-4 shadow-sm">
                         <i class="fas fa-save"></i> Save
                     </button>
@@ -28,6 +32,7 @@
         </div>
     </div>
 </div>
+
 @section ValidationSection {
 
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
