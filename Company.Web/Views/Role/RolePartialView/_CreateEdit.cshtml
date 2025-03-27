@@ -1,0 +1,13 @@
+﻿
+@model RoleToReturnDTO
+
+
+
+<div class="mb-3">
+    <label asp-for="Name" class="form-label fw-bold">
+        <i class="fa-solid fa-building-columns"></i> Role Name
+    </label>
+    <input asp-for="Name" class="form-control border-primary shadow-sm" placeholder="Enter Role name" required />
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+
