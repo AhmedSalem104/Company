@@ -3,6 +3,7 @@ using Company.Data.Data.Contexts;
 using Company.Data.Models;
 using Company.Services.Interfaces;
 using Company.Services.Repositories;
+using Company.Web.Helper;
 using Company.Web.Mapping;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace Company.Web
             //builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();   // Allow DI For DepartmentRepository
             //builder.Services.AddScoped<IEmployyRepository, EmployeeRepository>();        // Allow DI For EmployeeRepository
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();        // Allow DI For UnitOfWork
+            builder.Services.AddScoped<IEmailServices, MailKitSendEmailSetting>();        // Allow DI For UnitOfWork
 
 
             //builder.Services.AddAutoMapper(typeof(EmployeeProfile));                     // Allow DI For EmployeeRepositor
@@ -51,6 +53,11 @@ namespace Company.Web
                 options.Limits.MaxRequestHeadersTotalSize = 16384; 
             });
 
+            builder.Services.Configure<MailSetting>(builder
+                .Configuration.GetSection(nameof(MailSetting)));
+
+            //builder.Services.Configure<TwilioSetting>(builder
+            //  .Configuration.GetSection(nameof(TwilioSetting)));
 
 
             var app = builder.Build();
