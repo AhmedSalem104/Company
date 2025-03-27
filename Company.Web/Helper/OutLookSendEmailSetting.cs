@@ -3,19 +3,16 @@ using System.Net.Mail;
 
 namespace Company.Web.Helper
 {
-    public class EmailSetting
+    public class OutLookSendEmailSetting : IEmailServices
     {
-
-
-        // Use Outlook
-        public static bool SendEmail(Email email)
+        public  void SendEmail(Email email)
         {
             try
             {
                 MailMessage mail = new MailMessage();
 
                 // Set the sender's email address (Outlook)
-               // mail.From = new MailAddress("42016006@hti.edu.eg");
+                // mail.From = new MailAddress("42016006@hti.edu.eg");
                 mail.From = new MailAddress("42016006@hti.edu.eg", "Company");
 
 
@@ -51,10 +48,13 @@ namespace Company.Web.Helper
                 mail.Dispose();
 
 
-                return true;
+               
             }
-            catch(Exception e) { return false; }
-          
+            catch (Exception e) {  }
+
         }
+
+        // Use Outlook
+        
     }
 }

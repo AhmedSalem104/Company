@@ -16,11 +16,12 @@ namespace Company.Web.Controllers
     {
 		private readonly UserManager<AppUser> _UserManager;
 		private readonly SignInManager<AppUser> _SignInManager;
-        public AccountController(UserManager<AppUser> UserManager,SignInManager<AppUser> SignInManager)
+		private readonly IEmailServices _MailKitSendEmailSetting;
+        public AccountController(UserManager<AppUser> UserManager,SignInManager<AppUser> SignInManager , IEmailServices MailKitSendEmailSetting)
 		{
 			_UserManager = UserManager;
             _SignInManager = SignInManager;
-
+            _MailKitSendEmailSetting = MailKitSendEmailSetting;
         }
         #region SignUp
         [HttpGet]
@@ -143,14 +144,23 @@ namespace Company.Web.Controllers
                         Subject = "Reset Password",
                         Body = URL
                     };
-                
-                    var flage =  EmailSetting.SendEmail(email);
-                    if (flage)
-                    {
-                        // Success      Check Your Email
-                         return RedirectToAction(nameof(CheckYourInbox));
-                        
-                    }
+
+
+                    // 1.Way ( Use MailKit Service )
+
+                    _MailKitSendEmailSetting.SendEmail(email);
+
+
+                    // 2.Way ( Use OutLook Service ) 
+
+                    //OutLookSendEmailSetting outLookSendEmailSetting = new OutLookSendEmailSetting();
+                    //    var flage = outLookSendEmailSetting.SendEmail(email);
+                    //    var flage = outLookSendEmailSetting.SendEmail(email);
+                    //if (flage)
+                    //{
+                    //    // Success      Check Your Email
+                    //     return RedirectToAction(nameof(CheckYourInbox));
+                    //}
                 }
             }
             ModelState.AddModelError("", "Invalid Reste Password Operation");
