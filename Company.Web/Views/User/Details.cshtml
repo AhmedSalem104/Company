@@ -1,0 +1,47 @@
+﻿@model UserToReturnDTO
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-50">
+    <div class="col-md-8 bg-white p-4 rounded shadow-lg">
+        <h2 class="text-center text-primary mb-4">
+            <i class="fa-solid fa-user-tie"></i> User Details
+        </h2>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-user"></i> UserName:</h5>
+                        <p class="text-muted">@Model.UserName</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-calendar"></i> FName:</h5>
+                        <p class="text-muted">@Model.FName</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-envelope"></i> LName:</h5>
+                        <p class="text-muted">@Model.LName</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa-solid fa-map-marker-alt"></i> Email:</h5>
+                        <p class="text-muted">@Model.Email</p>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+
+
+        <div class="text-center mt-4">
+            <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-warning shadow-sm">
+                <i class="fa-solid fa-edit"></i> Edit
+            </a>
+            <a asp-action="Index" class="btn btn-secondary shadow-sm">
+                <i class="fa-solid fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+</div>
