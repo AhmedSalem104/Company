@@ -1,11 +1,12 @@
 ﻿function confirmDelete(id, controller) {
+    
     Swal.fire({
         title: "تأكيد الحذف",
         text: "هل أنت متأكد أنك تريد حذف هذا العنصر؟ لا يمكن التراجع عن هذا الإجراء!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#D9534F", // لون زر الحذف
-        cancelButtonColor: "#5BC0DE",  // لون زر الإلغاء
+        confirmButtonColor: "#D9534F", 
+        cancelButtonColor: "#5BC0DE",  
         confirmButtonText: "حذف",
         cancelButtonText: "إلغاء",
         reverseButtons: true,
