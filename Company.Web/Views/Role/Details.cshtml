@@ -1,0 +1,36 @@
+﻿@model RoleToReturnDTO
+
+@{
+    ViewData["Title"] = "Role Details";
+}
+
+<div class="container-fluid min-vh-50 d-flex justify-content-center align-items-center" style="background-color: #f8f9fa;">
+    <div class="container mt-5 p-4 bg-white rounded-3 shadow-lg" style="max-width: 600px;">
+        <h2 class="text-center text-primary mb-4">
+            <i class="fa-solid fa-building"></i> Roles Details
+        </h2>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <strong class="text-muted">Code:</strong> <span>@Model.Id</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <strong class="text-muted">Name:</strong> <span>@Model.Name</span>
+                    </li>
+                  
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-primary btn-lg shadow-sm">
+                <i class="fa-solid fa-pen-to-square"></i> Edit
+            </a>
+            <a asp-action="Index" class="btn btn-secondary btn-lg shadow-sm">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+</div>
