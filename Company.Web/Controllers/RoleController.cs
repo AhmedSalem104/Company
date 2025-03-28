@@ -121,13 +121,11 @@ namespace Company.Web.Controllers
             if (ModelState.IsValid)
             {
                 if (id != model.Id) return BadRequest(error: "Invalid Operations !");
-
                 var role = await _RoleManager.FindByIdAsync(id);
                 if (role is null) return BadRequest(error: "Invalid Operations !");
                 var roleResult = await _RoleManager.FindByNameAsync(model.Name);
-                if(roleResult is  null)
+                if (roleResult is null || roleResult.Id == id)
                 {
-                   
                     role.Name = model.Name;
 
                     var result = await _RoleManager.UpdateAsync(role);
@@ -136,6 +134,7 @@ namespace Company.Web.Controllers
                         return RedirectToAction(nameof(Index));
                     }
                 }
+             
 
                 ModelState.AddModelError("", "Invalid Operation");
 
