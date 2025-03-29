@@ -41,11 +41,12 @@
                                     <a asp-controller="Department" asp-action="Update" asp-route-id="@department.Id" class="btn btn-warning " title="Update">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <a onclick="confirmDelete(@department.Id,'Department')" class="btn btn-danger btn-sm " title="Delete">
+                                 
+                                    <a href="#" class="btn btn-danger " title="Delete"
+                                       data-id="@department.Id" data-type="Department" onclick="confirmDeleteHandler(this)">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>
-                                   
-
+                                  
                                 </td>
                             </tr>
                         }
@@ -63,4 +64,11 @@
     </div>
 </div>
 
-<script src="~/js/deleteconfirmation.js"></script>
+<script src="~/js/deleteconfirmation.js" asp-append-version="true" onerror="console.error('❌ فشل تحميل deleteconfirmation.js');"></script>
+<script>
+    function confirmDeleteHandler(element) {
+        var userId = element.getAttribute("data-id");
+        var type = element.getAttribute("data-type");
+        confirmDelete(userId, type);
+    }
+</script>
