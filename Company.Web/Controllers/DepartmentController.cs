@@ -24,6 +24,9 @@ namespace Company.Web.Controllers
         }
         #endregion
 
+
+        #region Grid View
+
         #region Index
         public async Task<IActionResult> Index()
         {
@@ -58,7 +61,7 @@ namespace Company.Web.Controllers
                 var department = _Mapper.Map<Department>(model);
 
 
-               await _UnitOfWork.DepartmentRepository.AddAsync(department);
+                await _UnitOfWork.DepartmentRepository.AddAsync(department);
                 var count = await _UnitOfWork.CompleteAsync();
                 if (department.Id == 0)
                 {
@@ -77,6 +80,7 @@ namespace Company.Web.Controllers
         #endregion
 
         #region Details
+
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
@@ -88,7 +92,7 @@ namespace Company.Web.Controllers
             if (department == null)
             {
                 return NotFound($"Department with ID {id} not found.");
-            }         
+            }
             return View(department);
         }
         #endregion
@@ -156,6 +160,9 @@ namespace Company.Web.Controllers
         }
 
         #endregion
+        #endregion
+
+
     }
 
 }

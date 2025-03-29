@@ -63,11 +63,14 @@
         }
     </div>
 </div>
+<script src="~/js/deleteconfirmation.js" asp-append-version="true" onerror="console.error('❌ فشل تحميل deleteconfirmation.js');"></script>
+
 <script>
+
     function confirmDeleteHandler(element) {
         var RoleId = element.getAttribute("data-id");
         var type = element.getAttribute("data-type");
         confirmDelete(RoleId, type);
     }
 </script>
-<script src="~/js/deleteconfirmation.js"></script>
+
