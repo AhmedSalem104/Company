@@ -1,6 +1,6 @@
 ﻿namespace Company.Web.Helper
 {
-    public class MailSetting
+    public class MailSettings
     {
         public string? Email { get; set; }
         public string? DisplayName { get; set; }

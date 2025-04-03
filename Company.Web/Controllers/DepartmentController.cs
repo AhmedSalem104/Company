@@ -24,9 +24,6 @@ namespace Company.Web.Controllers
         }
         #endregion
 
-
-        #region Grid View
-
         #region Index
         public async Task<IActionResult> Index()
         {
@@ -37,12 +34,14 @@ namespace Company.Web.Controllers
 
         #region Create
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateDepartmentDTO model)
         {
             if (!ModelState.IsValid)
@@ -99,6 +98,7 @@ namespace Company.Web.Controllers
 
         #region Update
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id)
         {
             if (id <= 0)
@@ -117,6 +117,7 @@ namespace Company.Web.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id, Department model)
         {
             if (ModelState.IsValid)
@@ -144,6 +145,7 @@ namespace Company.Web.Controllers
         #region Delete
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (id <= 0)
@@ -160,8 +162,6 @@ namespace Company.Web.Controllers
         }
 
         #endregion
-        #endregion
-
 
     }
 

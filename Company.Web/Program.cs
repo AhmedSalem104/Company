@@ -44,6 +44,7 @@ namespace Company.Web
             builder.Services.ConfigureApplicationCookie(config =>
             {
                 config.LoginPath = "/Account/SignIn";
+                config.AccessDeniedPath = "/Account/AccessDenied";
             });
 
 
@@ -53,8 +54,8 @@ namespace Company.Web
                 options.Limits.MaxRequestHeadersTotalSize = 16384; 
             });
 
-            builder.Services.Configure<MailSetting>(builder
-                .Configuration.GetSection(nameof(MailSetting)));
+            builder.Services.Configure<MailSettings>(builder
+                .Configuration.GetSection(nameof(MailSettings)));
 
             //builder.Services.Configure<TwilioSetting>(builder
             //  .Configuration.GetSection(nameof(TwilioSetting)));
