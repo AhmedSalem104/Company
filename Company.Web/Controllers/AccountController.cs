@@ -148,8 +148,11 @@ namespace Company.Web.Controllers
 
                     // 1.Way ( Use MailKit Service )
 
-                    _MailKitSendEmailSetting.SendEmail(email);
-
+                    var flage = _MailKitSendEmailSetting.SendEmail(email);
+                    if (flage)
+                    {                        
+                        return RedirectToAction(nameof(CheckYourInbox));
+                    }
 
                     // 2.Way ( Use OutLook Service ) 
 
@@ -179,9 +182,7 @@ namespace Company.Web.Controllers
 
         #endregion
 
-
-
-        #region
+        #region ResetPassword
 
         [HttpGet]
         public IActionResult ResetPassword( string email,string token)
@@ -220,6 +221,15 @@ namespace Company.Web.Controllers
 
 
         #endregion
+
+        #region AccessDenied
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        #endregion
+
 
 
     }

@@ -5,7 +5,7 @@ namespace Company.Web.Helper
 {
     public class OutLookSendEmailSetting : IEmailServices
     {
-        public  void SendEmail(Email email)
+        public bool SendEmail(Email email)
         {
             try
             {
@@ -47,10 +47,10 @@ namespace Company.Web.Helper
                 smtpClient.Dispose();
                 mail.Dispose();
 
-
+                return true;
                
             }
-            catch (Exception e) {  }
+            catch (Exception e) { return false;  }
 
         }
 

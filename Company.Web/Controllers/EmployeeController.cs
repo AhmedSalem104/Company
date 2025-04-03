@@ -11,7 +11,6 @@ using System.Drawing;
 namespace Company.Web.Controllers
 {
     [Authorize]
-
     public class EmployeeController : Controller
     {
         #region Fields & Constructor
@@ -62,6 +61,7 @@ namespace Company.Web.Controllers
 
         #region Create
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             var departments = await _UnitOfWork.DepartmentRepository.GetAllAsync();
@@ -71,6 +71,7 @@ namespace Company.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateEmployeeDTO model)
         {
             if (!ModelState.IsValid)
@@ -149,6 +150,7 @@ namespace Company.Web.Controllers
 
         #region Update
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id)
         {
             if (id <= 0)
@@ -168,11 +170,10 @@ namespace Company.Web.Controllers
 
             return View(Emp);
         }
-
-
         // EX 01
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id, CreateEmployeeDTO model)
         {
             if (ModelState.IsValid)
@@ -203,15 +204,11 @@ namespace Company.Web.Controllers
             return View(model);
         }
 
-       
-
-
         #endregion
 
         #region Delete
-
-
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (id <= 0)
