@@ -5,6 +5,7 @@ using Company.Services.Interfaces;
 using Company.Services.Repositories;
 using Company.Web.Helper;
 using Company.Web.Mapping;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,6 +47,31 @@ namespace Company.Web
                 config.LoginPath = "/Account/SignIn";
                 config.AccessDeniedPath = "/Account/AccessDenied";
             });
+
+
+            // Login By Google & Facebook
+            builder.Services.AddAuthentication(options =>
+            {
+                // تعيين التخطيط الافتراضي للمصادقة
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+                .AddCookie(options =>
+                {
+                    // مسار الدخول والخروج
+                    options.LoginPath = "/Account/SignIn";
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                })
+                .AddGoogle(options =>
+                {
+                    options.ClientId = builder.Configuration["Authentication:Google:client_id"];
+                    options.ClientSecret = builder.Configuration["Authentication:Google:client_secret"];
+                })
+                .AddFacebook(options =>
+                {
+                    options.ClientId = builder.Configuration["Authentication:Facebook:client_id"];
+                    options.ClientSecret = builder.Configuration["Authentication:Facebook:client_secret"];
+                });
 
 
             builder.WebHost.ConfigureKestrel(options =>
