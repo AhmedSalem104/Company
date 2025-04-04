@@ -163,6 +163,12 @@ namespace Company.Web.Controllers
 
         #endregion
 
+        public async Task<IActionResult> Search(string? SearchName)
+        {
+            var Departs = await _UnitOfWork.DepartmentRepository.SearchDepartmentsByNameAsync(SearchName);
+            return PartialView("_DepartmentTablePartialView", Departs);
+        }
+
     }
 
 }

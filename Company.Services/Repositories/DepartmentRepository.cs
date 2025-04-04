@@ -12,9 +12,22 @@ namespace Company.Services.Repositories
 {
     public class DepartmentRepository : GenericRepository<Department> ,IDepartmentRepository
     {
+        private readonly CompanyDbContext _Context;
         public DepartmentRepository(CompanyDbContext context) : base(context)
         {
-
+            _Context = context;
         }
+
+
+        public async Task<List<Department>> SearchDepartmentsByNameAsync(string Name)
+        {
+            return await _Context.Departments.Where(E => E.Name.ToLower().Contains(Name.ToLower()))
+                .ToListAsync();
+        }
+      
+   
+
+     
+
     }
 }

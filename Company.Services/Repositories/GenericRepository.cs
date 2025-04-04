@@ -50,6 +50,8 @@ namespace Company.Services.Repositories
             _context.Set<T>().Remove(model);
         }
 
+
        
+
     }
 }

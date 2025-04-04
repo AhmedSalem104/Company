@@ -9,6 +9,7 @@ namespace Company.Services.Interfaces
 {
     public interface IDepartmentRepository : IGenericRepository<Department>
     {
-       
+        Task<List<Department>> SearchDepartmentsByNameAsync(string Name);
+
     }
 }

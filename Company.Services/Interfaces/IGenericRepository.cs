@@ -14,5 +14,6 @@ namespace Company.Services.Interfaces
         Task AddAsync(TEntity model);
         void Update(TEntity model);
         void Delete(TEntity model);
+      
     }
 }
