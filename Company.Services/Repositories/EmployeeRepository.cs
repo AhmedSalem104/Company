@@ -17,12 +17,13 @@ namespace Company.Services.Repositories
         {
             _Context = Context;
         }
-
         public async Task<List<Employee>> SearchEmployeesByNameAsync(string Name)
         {
-            return await _Context.Employees.Include(E=>E.Department)
-                .Where(E=>E.Name.ToLower().Contains(Name.ToLower()))
+            return await _Context.Employees.Include(E => E.Department)
+                .Where(E => E.Name.ToLower().Contains(Name.ToLower()))
                 .ToListAsync();
         }
+
+       
     }
 }

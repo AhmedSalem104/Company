@@ -29,18 +29,10 @@ namespace Company.Web.Controllers
 
         #region Index
         public async Task<IActionResult> Index(string? SearchName)
-        {
-            IEnumerable<Employee> Employees;
-            if (string.IsNullOrEmpty(SearchName))
-            {
-                 Employees = await _UnitOfWork.EmployyRepository.GetAllAsync();
+        {              
+            var Employees = await _UnitOfWork.EmployyRepository.GetAllAsync();
+            return View(Employees);
 
-            }
-            else
-            {
-                 Employees = await _UnitOfWork.EmployyRepository.SearchEmployeesByNameAsync(SearchName);
-
-            }
             // Dictionary : 3 Property
             // 1.ViewData : Transfer Extra Information From Controller (Action) To View
 
@@ -55,7 +47,13 @@ namespace Company.Web.Controllers
 
             // 2.TempData : Transfer Extra Information From Controller (Action) To the same View or anoter view  Ex : From Create To Index  
 
-            return View(Employees);
+
+        }
+
+        public async Task<IActionResult> Search(string? SearchName)
+        {
+            var Employees = await _UnitOfWork.EmployyRepository.SearchEmployeesByNameAsync(SearchName);
+             return PartialView("_EmployeesTablePartialView", Employees);
         }
         #endregion
 

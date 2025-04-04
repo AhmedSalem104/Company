@@ -11,18 +11,19 @@ using System.Drawing;
 
 namespace Company.Web.Controllers
 {
-
-    public class AccountController : Controller
+   public class AccountController : Controller
     {
 		private readonly UserManager<AppUser> _UserManager;
 		private readonly SignInManager<AppUser> _SignInManager;
 		private readonly IEmailServices _MailKitSendEmailSetting;
+
         public AccountController(UserManager<AppUser> UserManager,SignInManager<AppUser> SignInManager , IEmailServices MailKitSendEmailSetting)
 		{
 			_UserManager = UserManager;
             _SignInManager = SignInManager;
             _MailKitSendEmailSetting = MailKitSendEmailSetting;
         }
+
         #region SignUp
         [HttpGet]
         public IActionResult SignUp()
@@ -227,10 +228,7 @@ namespace Company.Web.Controllers
         {
             return View();
         }
-
         #endregion
-
-
 
     }
 }
