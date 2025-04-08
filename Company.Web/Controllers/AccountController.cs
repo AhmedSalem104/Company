@@ -1,10 +1,7 @@
 ﻿using Company.Data.Models;
 using Company.Web.DTO;
 using Company.Web.Helper;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Facebook;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -233,67 +230,6 @@ namespace Company.Web.Controllers
             return View();
         }
         #endregion
-
-        #region AuthWithGoogle
-        public IActionResult GoogleLogin()
-        {
-            var properties = new AuthenticationProperties()
-            {
-                RedirectUri = Url.Action("GoogleResponse")
-            };
-            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
-        }
-
-        public async Task<IActionResult> GoogleResponse()
-        {
-            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            if (!result.Succeeded)
-            {
-                return BadRequest("فشل تسجيل الدخول باستخدام جوجل");
-            }
-            var claims = result.Principal.Identities
-                .FirstOrDefault()?.Claims.Select(claim => new
-                {
-                    claim.Issuer,
-                    claim.OriginalIssuer,
-                    claim.Type,
-                    claim.Value
-                });
-
-            return RedirectToAction("Index", "Home");
-        }
-        #endregion
-
-        #region AuthWithFacebook
-        public IActionResult FacebookLogin()
-        {
-            var properties = new AuthenticationProperties()
-            {
-                RedirectUri = Url.Action("FacebookResponse")
-            };
-            return Challenge(properties, FacebookDefaults.AuthenticationScheme);
-        }
-
-        public async Task<IActionResult> FacebookResponse()
-        {
-            var result = await HttpContext.AuthenticateAsync(FacebookDefaults.AuthenticationScheme);
-            if (!result.Succeeded)
-            {
-                return BadRequest("فشل تسجيل الدخول باستخدام جوجل");
-            }
-            var claims = result.Principal.Identities
-                .FirstOrDefault()?.Claims.Select(claim => new
-                {
-                    claim.Issuer,
-                    claim.OriginalIssuer,
-                    claim.Type,
-                    claim.Value
-                });
-
-            return RedirectToAction("Index", "Home");
-        }
-        #endregion
-
 
     }
 }
