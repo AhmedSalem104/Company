@@ -6,8 +6,12 @@ using Company.Services.Repositories;
 using Company.Web.Helper;
 using Company.Web.Mapping;
 
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace Company.Web
 {
@@ -26,7 +30,7 @@ namespace Company.Web
 
 
             //builder.Services.AddAutoMapper(typeof(EmployeeProfile));                     // Allow DI For EmployeeRepositor
-            builder.Services.AddAutoMapper(M=>M.AddProfile(new EmployeeProfile()));
+            builder.Services.AddAutoMapper(M => M.AddProfile(new EmployeeProfile()));
 
 
             // builder.Services.AddScoped<CompanyDbContext>(); // Allow DI For CompanyDbContext
@@ -48,6 +52,38 @@ namespace Company.Web
                 config.AccessDeniedPath = "/Account/AccessDenied";
             });
 
+
+
+            // Login By Google & Facebook
+            builder.Services.AddAuthentication(options =>
+            {
+                // تعيين التخطيط الافتراضي للمصادقة
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+                .AddCookie(options =>
+                {
+                    // مسار الدخول والخروج
+                    options.LoginPath = "/Account/SignIn";
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                })
+                .AddGoogle(options =>
+                {
+                    options.ClientId = builder.Configuration["Authentication:Google:client_id"];
+                    options.ClientSecret = builder.Configuration["Authentication:Google:client_secret"];
+                })
+                .AddFacebook(options =>
+                {
+                    options.ClientId = builder.Configuration["Authentication:Facebook:client_id"];
+                    options.ClientSecret = builder.Configuration["Authentication:Facebook:client_secret"];
+                });
+
+
+
+         
+
+
+
             builder.WebHost.ConfigureKestrel(options =>
             {
                 options.Limits.MaxRequestLineSize = 8192; 
@@ -61,13 +97,19 @@ namespace Company.Web
             //  .Configuration.GetSection(nameof(TwilioSetting)));
 
 
+
+
+
+
+
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
