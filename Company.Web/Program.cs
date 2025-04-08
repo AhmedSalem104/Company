@@ -5,6 +5,7 @@ using Company.Services.Interfaces;
 using Company.Services.Repositories;
 using Company.Web.Helper;
 using Company.Web.Mapping;
+
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -50,6 +51,7 @@ namespace Company.Web
                 config.LoginPath = "/Account/SignIn";
                 config.AccessDeniedPath = "/Account/AccessDenied";
             });
+
 
 
             // Login By Google & Facebook
