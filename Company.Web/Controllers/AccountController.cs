@@ -234,6 +234,7 @@ namespace Company.Web.Controllers
         }
         #endregion
 
+
         #region AuthWithGoogle
         public IActionResult GoogleLogin()
         {
