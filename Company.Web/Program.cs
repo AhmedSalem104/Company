@@ -5,6 +5,7 @@ using Company.Services.Interfaces;
 using Company.Services.Repositories;
 using Company.Web.Helper;
 using Company.Web.Mapping;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,7 +47,6 @@ namespace Company.Web
                 config.LoginPath = "/Account/SignIn";
                 config.AccessDeniedPath = "/Account/AccessDenied";
             });
-
 
             builder.WebHost.ConfigureKestrel(options =>
             {
