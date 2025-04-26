@@ -1,4 +1,5 @@
 ﻿@model Company.Web.DTO.SignInDTO
+
 @{
     ViewData["Title"] = "Sign In";
     Layout = "~/Views/Shared/_AuthLayout.cshtml";
@@ -6,77 +7,63 @@
 
 <div class="container">
     <div class="row justify-content-center align-items-center vh-50">
-
-        <div class="col-md-6">
-            <!-- فورم التسجيل في منتصف الشاشة -->
-            <div class="card shadow-lg p-5 text-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg p-5">
                 <h3 class="text-center mb-4">Login</h3>
 
                 <form asp-action="SignIn" method="post">
 
-                    <div class="form-group">
-                        <input asp-for="Email" class="form-control validation-input" placeholder=" ">
+                    <div class="form-group mb-3 position-relative">
+                        <input asp-for="Email" class="form-control validation-input" placeholder=" " />
                         <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
-                        <span class="text-danger" asp-validation-for="Email"></span>
+                        <span class="text-danger small" asp-validation-for="Email"></span>
                     </div>
 
-                    <div class="form-group">
-                        <input asp-for="Password" type="password" class="form-control validation-input" placeholder=" ">
+                    <div class="form-group mb-3 position-relative">
+                        <input asp-for="Password" type="password" class="form-control validation-input" placeholder=" " />
                         <label class="form-label"><i class="fas fa-lock"></i> Password</label>
-                        <span class="text-danger" asp-validation-for="Password"></span>
+                        <span class="text-danger small" asp-validation-for="Password"></span>
                     </div>
 
-
-                    <div class="form-check mb-3 d-flex align-items-center gap-2">
-
-                <div class="form-check mb-3 d-flex align-items-center gap-2">
-
-                        <input asp-for="RememberMe" class="form-check-input">
+                    <div class="form-check mb-4 d-flex align-items-center gap-2">
+                        <input asp-for="RememberMe" class="form-check-input" />
                         <label class="form-check-label" for="RememberMe">
                             Remember Me
                         </label>
                     </div>
 
-
-                    <div class="mt-3">
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-user-plus"></i> Sign In
+                    <div class="d-grid mb-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt me-2"></i> Sign In
                         </button>
                     </div>
                 </form>
 
-
-                <!-- قسم تسجيل الدخول باستخدام جوجل وفيسبوك -->
-                <div class="mt-4">
-                    <div class="d-flex align-items-center mb-3">
-                        <hr class="flex-grow-1">
+                <div class="text-center mb-4">
+                    <div class="d-flex align-items-center">
+                        <hr class="flex-grow-1" />
                         <span class="px-2 text-muted">OR</span>
-                        <hr class="flex-grow-1">
-                    </div>
-
-                    <!-- وضع الأزرار جنباً إلى جنب باستخدام Flexbox -->
-                    <div class="d-flex gap-3">
-                        <!-- زر تسجيل الدخول باستخدام جوجل -->
-                        <a asp-action="GoogleLogin" class="btn btn-outline-danger w-50">
-                            <i class="fab fa-google me-2"></i> Sign in with Google
-                        </a>
-
-                        <!-- زر تسجيل الدخول باستخدام فيسبوك -->
-                        <a asp-action="FacebookLogin" class="btn btn-outline-primary w-50">
-                            <i class="fab fa-facebook-f me-2"></i> Sign in with Facebook
-                        </a>
+                        <hr class="flex-grow-1" />
                     </div>
                 </div>
 
+                <div class="d-flex gap-3 mb-4">
+                    <a asp-action="GoogleLogin" class="btn btn-outline-danger w-50">
+                        <i class="fab fa-google me-2"></i> Google
+                    </a>
+                    <a asp-action="FacebookLogin" class="btn btn-outline-primary w-50">
+                        <i class="fab fa-facebook-f me-2"></i> Facebook
+                    </a>
+                </div>
 
-                <div class="mt-3 text-center">
-                    <p class="mb-2 text-gray-700">
-                        Don't Have an Account?
-                        <a asp-action="SignUp" class="text-primary fw-bold text-decoration-none">Create New Account</a>
+                <div class="text-center">
+                    <p class="mb-2 text-muted">
+                        Don't have an account?
+                        <a asp-action="SignUp" class="fw-bold text-decoration-none text-primary">Create New Account</a>
                     </p>
-                    <p class="text-gray-700">
+                    <p class="text-muted">
                         Forgot Password?
-                        <a asp-action="ForgetPassword" class="text-danger fw-bold text-decoration-none">Reset Password</a>
+                        <a asp-action="ForgetPassword" class="fw-bold text-decoration-none text-danger">Reset Password</a>
                     </p>
                 </div>
             </div>
