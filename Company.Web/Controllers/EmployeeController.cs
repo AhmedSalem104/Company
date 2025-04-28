@@ -155,20 +155,18 @@ namespace Company.Web.Controllers
             {
                 return BadRequest("Invalid Employee ID.");
             }
-            var Employee = await _UnitOfWork.EmployyRepository.GetAsync(id);
-            if (Employee == null)
+            var employee = await _UnitOfWork.EmployyRepository.GetAsync(id);
+            if (employee == null)
             {
                 return NotFound($"Employee with ID {id} not found.");
             }
             var departments = await _UnitOfWork.DepartmentRepository.GetAllAsync();
             ViewData["Departments"] = departments;
 
-            var Emp = _Mapper.Map<CreateEmployeeDTO>(Employee);
+            var empDto = _Mapper.Map<CreateEmployeeDTO>(employee);
 
-
-            return View(Emp);
+            return View(empDto);
         }
-        // EX 01
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -176,15 +174,13 @@ namespace Company.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-
-
-                if (model.ImageName is not null)
+                if (model.Image != null)
                 {
-                    DocumentSettings.DeleteFile(model.ImageName, folderName: "images");
-                }
+                    if (!string.IsNullOrEmpty(model.ImageName))
+                    {
+                        DocumentSettings.DeleteFile(model.ImageName, folderName: "images");
+                    }
 
-                if (model.Image is not null)
-                {
                     model.ImageName = DocumentSettings.UploadFile(model.Image, folderName: "images");
                 }
 
@@ -197,12 +193,69 @@ namespace Company.Web.Controllers
                 {
                     return RedirectToAction(nameof(Index));
                 }
-
             }
+
             return View(model);
         }
-
         #endregion
+
+        //#region Update
+        //[HttpGet]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> Update(int id)
+        //{
+        //    if (id <= 0)
+        //    {
+        //        return BadRequest("Invalid Employee ID.");
+        //    }
+        //    var Employee = await _UnitOfWork.EmployyRepository.GetAsync(id);
+        //    if (Employee == null)
+        //    {
+        //        return NotFound($"Employee with ID {id} not found.");
+        //    }
+        //    var departments = await _UnitOfWork.DepartmentRepository.GetAllAsync();
+        //    ViewData["Departments"] = departments;
+
+        //    var Emp = _Mapper.Map<CreateEmployeeDTO>(Employee);
+
+
+        //    return View(Emp);
+        //}
+        //// EX 01
+
+        //[HttpPost]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> Update([FromRoute] int id, CreateEmployeeDTO model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+
+
+        //        if (model.ImageName is not null)
+        //        {
+        //            DocumentSettings.DeleteFile(model.ImageName, folderName: "images");
+        //        }
+
+        //        if (model.Image is not null)
+        //        {
+        //            model.ImageName = DocumentSettings.UploadFile(model.Image, folderName: "images");
+        //        }
+
+        //        var employee = _Mapper.Map<Employee>(model);
+        //        employee.Id = id;
+        //        _UnitOfWork.EmployyRepository.Update(employee);
+        //        var count = await _UnitOfWork.CompleteAsync();
+
+        //        if (count > 0)
+        //        {
+        //            return RedirectToAction(nameof(Index));
+        //        }
+
+        //    }
+        //    return View(model);
+        //}
+
+        //#endregion
 
         #region Delete
         [HttpPost]
