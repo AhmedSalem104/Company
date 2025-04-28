@@ -1,4 +1,5 @@
 ﻿@model Company.Web.DTO.SignInDTO
+
 @{
     ViewData["Title"] = "Sign In";
     Layout = "~/Views/Shared/_AuthLayout.cshtml";
@@ -47,8 +48,9 @@
                     <div class="d-flex align-items-center mb-3">
                         <hr class="flex-grow-1">
                         <span class="px-2 text-muted">OR</span>
-                        <hr class="flex-grow-1">
+                        <hr class="flex-grow-1" />
                     </div>
+                </div>
 
                     <!-- الأزرار بجانب بعضها باستخدام Flexbox -->
                     <div class="d-flex gap-3">
@@ -70,9 +72,9 @@
                         Don't have an account?
                         <a asp-action="SignUp" class="text-primary fw-bold text-decoration-none">Create New Account</a>
                     </p>
-                    <p class="text-gray-700">
+                    <p class="text-muted">
                         Forgot Password?
-                        <a asp-action="ForgetPassword" class="text-danger fw-bold text-decoration-none">Reset Password</a>
+                        <a asp-action="ForgetPassword" class="fw-bold text-decoration-none text-danger">Reset Password</a>
                     </p>
                 </div>
             </div>
