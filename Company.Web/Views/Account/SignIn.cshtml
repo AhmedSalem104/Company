@@ -8,43 +8,39 @@
     <div class="row justify-content-center align-items-center vh-50">
 
         <div class="col-md-6">
-            <!-- فورم التسجيل في منتصف الشاشة -->
-            <div class="card shadow-lg p-5 text-center">
-                <h3 class="text-center mb-4">Login</h3>
+            <!-- فورم تسجيل الدخول في منتصف الشاشة -->
+            <div class="card shadow-lg p-5">
+                <h3 class="text-center mb-4">Sign In</h3>
 
                 <form asp-action="SignIn" method="post">
 
-                    <div class="form-group">
-                        <input asp-for="Email" class="form-control validation-input" placeholder=" ">
-                        <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
+                    <!-- حقل البريد الإلكتروني -->
+                    <div class="form-group position-relative mb-4">
+                        <input asp-for="Email" class="form-control validation-input" placeholder=" " id="Email">
+                        <label for="Email" class="form-label position-absolute start-0 top-0 mt-1 ms-3"><i class="fas fa-envelope"></i> Email</label>
                         <span class="text-danger" asp-validation-for="Email"></span>
                     </div>
 
-                    <div class="form-group">
-                        <input asp-for="Password" type="password" class="form-control validation-input" placeholder=" ">
-                        <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+                    <!-- حقل كلمة المرور -->
+                    <div class="form-group position-relative mb-4">
+                        <input asp-for="Password" type="password" class="form-control validation-input" placeholder=" " id="Password">
+                        <label for="Password" class="form-label position-absolute start-0 top-0 mt-1 ms-3"><i class="fas fa-lock"></i> Password</label>
                         <span class="text-danger" asp-validation-for="Password"></span>
                     </div>
 
-
-                    <div class="form-check mb-3 d-flex align-items-center gap-2">
-
-                <div class="form-check mb-3 d-flex align-items-center gap-2">
-
-                        <input asp-for="RememberMe" class="form-check-input">
-                        <label class="form-check-label" for="RememberMe">
-                            Remember Me
-                        </label>
+                    <!-- تذكرني -->
+                    <div class="form-check mb-4 d-flex align-items-center">
+                        <input asp-for="RememberMe" type="checkbox" class="form-check-input" id="RememberMe">
+                        <label for="RememberMe" class="form-check-label ms-2">Remember Me</label>
                     </div>
 
-
+                    <!-- زر تسجيل الدخول -->
                     <div class="mt-3">
                         <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-user-plus"></i> Sign In
+                            <i class="fas fa-sign-in-alt"></i> Sign In
                         </button>
                     </div>
                 </form>
-
 
                 <!-- قسم تسجيل الدخول باستخدام جوجل وفيسبوك -->
                 <div class="mt-4">
@@ -54,7 +50,7 @@
                         <hr class="flex-grow-1">
                     </div>
 
-                    <!-- وضع الأزرار جنباً إلى جنب باستخدام Flexbox -->
+                    <!-- الأزرار بجانب بعضها باستخدام Flexbox -->
                     <div class="d-flex gap-3">
                         <!-- زر تسجيل الدخول باستخدام جوجل -->
                         <a asp-action="GoogleLogin" class="btn btn-outline-danger w-50">
@@ -68,10 +64,10 @@
                     </div>
                 </div>
 
-
+                <!-- روابط للمستخدمين الجدد أو نسيت كلمة المرور -->
                 <div class="mt-3 text-center">
                     <p class="mb-2 text-gray-700">
-                        Don't Have an Account?
+                        Don't have an account?
                         <a asp-action="SignUp" class="text-primary fw-bold text-decoration-none">Create New Account</a>
                     </p>
                     <p class="text-gray-700">

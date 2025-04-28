@@ -41,6 +41,8 @@ namespace Company.Web
             //builder.Services.AddSingleton();  // Create Object life Time Per Application
 
 
+      
+
             builder.Services.AddDbContext<CompanyDbContext>(option => { option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
             builder.Services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<CompanyDbContext>()
@@ -54,29 +56,29 @@ namespace Company.Web
 
 
 
-            // Login By Google & Facebook
-            builder.Services.AddAuthentication(options =>
-            {
-                // تعيين التخطيط الافتراضي للمصادقة
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-                .AddCookie(options =>
-                {
-                    // مسار الدخول والخروج
-                    options.LoginPath = "/Account/SignIn";
-                    options.AccessDeniedPath = "/Account/AccessDenied";
-                })
-                .AddGoogle(options =>
-                {
-                    options.ClientId = builder.Configuration["Authentication:Google:client_id"];
-                    options.ClientSecret = builder.Configuration["Authentication:Google:client_secret"];
-                })
-                .AddFacebook(options =>
-                {
-                    options.ClientId = builder.Configuration["Authentication:Facebook:client_id"];
-                    options.ClientSecret = builder.Configuration["Authentication:Facebook:client_secret"];
-                });
+            //// Login By Google & Facebook
+            //builder.Services.AddAuthentication(options =>
+            //{
+            //    // تعيين التخطيط الافتراضي للمصادقة
+            //    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //})
+            //    .AddCookie(options =>
+            //    {
+            //        // مسار الدخول والخروج
+            //        options.LoginPath = "/Account/SignIn";
+            //        options.AccessDeniedPath = "/Account/AccessDenied";
+            //    })
+            //    .AddGoogle(options =>
+            //    {
+            //        options.ClientId = builder.Configuration["Authentication:Google:client_id"];
+            //        options.ClientSecret = builder.Configuration["Authentication:Google:client_secret"];
+            //    })
+            //    .AddFacebook(options =>
+            //    {
+            //        options.ClientId = builder.Configuration["Authentication:Facebook:client_id"];
+            //        options.ClientSecret = builder.Configuration["Authentication:Facebook:client_secret"];
+            //    });
 
 
 

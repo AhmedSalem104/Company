@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Company.Data.Data.Contexts
 {
     public class CompanyDbContext : IdentityDbContext<AppUser>
@@ -19,11 +18,6 @@ namespace Company.Data.Data.Contexts
         
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Server = DESKTOP-M87APL7\\SQLEXPRESS ; Database = CompanyFirstProject; Trusted_Connection = True ; TrustServerCertificate = True");
-        //}
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
@@ -33,9 +27,6 @@ namespace Company.Data.Data.Contexts
 
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
-
-
-
 
     }
 }
