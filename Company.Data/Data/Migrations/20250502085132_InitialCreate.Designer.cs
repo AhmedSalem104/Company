@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company.Data.Data.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    [Migration("20250428093419_Update")]
-    partial class Update
+    [Migration("20250502085132_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -28,15 +28,6 @@
             </a>
         </div>
 
-        <!-- 🔍 إضافة مربع البحث -->
-        <form id="searchForm" action="/Employee/Index" method="get">
-            <div class="mb-4 d-flex justify-content-center">
-                <input type="text" name="SearchName" id="searchInput" class="form-control w-50 me-2" placeholder="Search employees...">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i> Search
-                </button>
-            </div>
-        </form>
 
         @if (Model.Any())
         {
@@ -68,33 +59,16 @@
 <script src="~/js/deleteconfirmation.js"></script>
 @section Scripts {
     <script>
-            let debounceTimer;
+          $(document).ready(function() {
+            $('#employeeTab').DataTable();
+        });
 
-        $('#searchInput').on('keyup', function () {
-            clearTimeout(debounceTimer);
-            const searchVal = $(this).val();
 
-            debounceTimer = setTimeout(function () {
-                $('#loadingSpinner').show(); 
-
-                $.ajax({
-                    url: '/Employee/Search',
-                    type: 'GET',
-                    data: { SearchName: searchVal },
-                        success: function (result) {
-                     $('#employeesTable').html(result);
-                   console.log("Partial View HTML:", result);
-                        },
-                        error: function (xhr, status, error) {
-                            console.error(error);
-                        },
-                        complete: function () {
-                            $('#loadingSpinner').hide(); 
-                        }
-                    });
-
-                }, 500); 
-            });
+        function confirmDeleteHandler(element) {
+            var userId = element.getAttribute("data-id");
+            var type = element.getAttribute("data-type");
+            confirmDelete(userId, type);
+        };
     </script>
 }
 

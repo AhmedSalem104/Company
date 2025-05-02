@@ -14,15 +14,7 @@
                 <i class="fas fa-plus"></i> Add New Department
             </a>
         </div>
-        <!-- 🔍 إضافة مربع البحث -->
-        <form id="searchForm" action="/Employee/Index" method="get">
-            <div class="mb-4 d-flex justify-content-center">
-                <input type="text" name="SearchName" id="searchInput" class="form-control w-50 me-2" placeholder="Search employees...">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i> Search
-                </button>
-            </div>
-        </form>
+      
         @if (Model.Any())
         {
             <div id="departmentsTable">
@@ -52,33 +44,10 @@
 
 <script src="~/js/deleteconfirmation.js" asp-append-version="true" onerror="console.error('❌ فشل تحميل deleteconfirmation.js');"></script>
 @section Scripts {
+
     <script>
-        let debounceTimer;
-
-        $('#searchInput').on('keyup', function () {
-            clearTimeout(debounceTimer);
-            const searchVal = $(this).val();
-
-            debounceTimer = setTimeout(function () {
-                $('#loadingSpinner').show();
-
-                $.ajax({
-                    url: '/Department/Search',
-                    type: 'GET',
-                    data: { SearchName: searchVal },
-                    success: function (result) {
-                        $('#departmentsTable').html(result);
-                        console.log("Partial View HTML:", result);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(error);
-                    },
-                    complete: function () {
-                        $('#loadingSpinner').hide();
-                    }
-                });
-
-            }, 500);
+            $(document).ready(function() {
+            $('#departmentsTab').DataTable();
         });
 
 
@@ -86,7 +55,8 @@
             var userId = element.getAttribute("data-id");
             var type = element.getAttribute("data-type");
             confirmDelete(userId, type);
-        }
+        };
     </script>
+
 }
 
